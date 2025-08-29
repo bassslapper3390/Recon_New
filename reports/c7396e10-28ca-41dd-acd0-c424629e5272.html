@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Recon Report</title>
+		<link rel="stylesheet" href="/static/style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1>Recon Report</h1>
+			<p><strong>Target:</strong> 192.168.79.2</p>
+			<h2>Passive Recon</h2>
+			<pre>{
+  "ct_logs": null,
+  "dns": null,
+  "http": {
+    "http://192.168.79.2": {
+      "error": ""
+    },
+    "https://192.168.79.2": {
+      "error": ""
+    }
+  },
+  "robots": null,
+  "ssl": null,
+  "whois": {
+    "address": "None",
+    "city": "None",
+    "country": "None",
+    "creation_date": "None",
+    "dnssec": "None",
+    "domain_name": "None",
+    "emails": "abuse@iana.org",
+    "expiration_date": "None",
+    "name": "None",
+    "name_servers": "None",
+    "org": "None",
+    "referral_url": "None",
+    "registrant_postal_code": "None",
+    "registrar": "None",
+    "state": "None",
+    "status": "None",
+    "updated_date": "None",
+    "whois_server": "None"
+  }
+}</pre>
+			<h2>Tools</h2>
+			
+				<h3>masscan — OK</h3>
+				<pre>No open ports found in range 1-1024</pre>
+			
+				<h3>wafw00f — FAILED</h3>
+				<pre>WAF detection failed: HTTPConnectionPool(host=&#39;192.168.79.2&#39;, port=80): Max retries exceeded with url: / (Caused by ConnectTimeoutError(&lt;urllib3.connection.HTTPConnection object at 0x0000028BE3369430&gt;, &#39;Connection to 192.168.79.2 timed out. (connect timeout=10)&#39;))</pre>
+			
+				<h3>nmap — OK</h3>
+				<pre>No open ports found</pre>
+			
+				<h3>naabu — OK</h3>
+				<pre>No open ports found</pre>
+			
+				<h3>feroxbuster — OK</h3>
+				<pre>No common directories found</pre>
+			
+				<h3>sniper — OK</h3>
+				<pre>=== SNIPER SCAN RESULTS FOR 192.168.79.2 ===
+No open ports found
+DNS resolution failed</pre>
+			
+				<h3>httpx — FAILED</h3>
+				<pre>HTTP probe failed: HTTPConnectionPool(host=&#39;192.168.79.2&#39;, port=80): Max retries exceeded with url: / (Caused by ConnectTimeoutError(&lt;urllib3.connection.HTTPConnection object at 0x0000028BE33167E0&gt;, &#39;Connection to 192.168.79.2 timed out. (connect timeout=10)&#39;))</pre>
+			
+				<h3>whatweb — FAILED</h3>
+				<pre>Web scan failed: HTTPConnectionPool(host=&#39;192.168.79.2&#39;, port=80): Max retries exceeded with url: / (Caused by ConnectTimeoutError(&lt;urllib3.connection.HTTPConnection object at 0x0000028BE2E98470&gt;, &#39;Connection to 192.168.79.2 timed out. (connect timeout=10)&#39;))</pre>
+			
+				<h3>nuclei — OK</h3>
+				<pre>No obvious vulnerabilities detected</pre>
+			
+				<h3>aquatone — FAILED</h3>
+				<pre>Page analysis failed: HTTPConnectionPool(host=&#39;192.168.79.2&#39;, port=80): Max retries exceeded with url: / (Caused by ConnectTimeoutError(&lt;urllib3.connection.HTTPConnection object at 0x0000028BE2E9AE70&gt;, &#39;Connection to 192.168.79.2 timed out. (connect timeout=10)&#39;))</pre>
+			
+				<h3>builtin-tcp — OK</h3>
+				<pre>No common TCP ports discovered open.</pre>
+			
+		</div>
+	</body>
+</html>
