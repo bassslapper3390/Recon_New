@@ -1,0 +1,400 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Recon Report</title>
+		<link rel="stylesheet" href="/static/style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1>Recon Report</h1>
+			<p><strong>Target:</strong> google.com</p>
+			<h2>Passive Recon</h2>
+			<pre>{
+  "ct_logs": [],
+  "dns": {
+    "A": [
+      "172.217.24.238"
+    ],
+    "AAAA": [
+      "2404:6800:4002:80b::200e"
+    ],
+    "MX_error": "The resolution lifetime expired after 5.000 seconds: Server Do53:172.20.10.1@53 answered The DNS operation timed out.; Server Do53:172.16.16.16@53 answered The DNS operation timed out.; Server Do53:172.20.10.1@53 answered The DNS operation timed out.",
+    "NS": [
+      "ns2.google.com.",
+      "ns1.google.com.",
+      "ns4.google.com.",
+      "ns3.google.com."
+    ],
+    "TXT": [
+      "\"MS=E4A68B9AB2BB9670BCE15412F62916164C0B20BB\"",
+      "\"docusign=05958488-4752-4ef2-95eb-aa7ba8a3bd0e\"",
+      "\"google-site-verification=wD8N7i1JTNTkezJ49swvWW48f8_9xveREV4oB-0Hf5o\"",
+      "\"cisco-ci-domain-verification=47c38bc8c4b74b7233e9053220c1bbe76bcc1cd33c7acf7acd36cd6a5332004b\"",
+      "\"google-site-verification=TV9-DBe4R80X4v0M4U_bd_J9cpOJM0nikft0jAgjmsQ\"",
+      "\"globalsign-smime-dv=CDYX+XFHUw2wml6/Gb8+59BsH31KzUr6c1l2BPvqKX8=\"",
+      "\"apple-domain-verification=30afIBcvSuDV2PLX\"",
+      "\"v=spf1 include:_spf.google.com ~all\"",
+      "\"docusign=1b0a6754-49b1-4db5-8540-d2c12664b289\"",
+      "\"google-site-verification=4ibFUgB-wXLQ_S7vsXVomSTVamuOXBiVAzpR5IZ87D0\"",
+      "\"facebook-domain-verification=22rm551cu4k0ab0bxsw536tlds4h95\"",
+      "\"onetrust-domain-verification=de01ed21f2fa4d8781cbc3ffb89cf4ef\""
+    ]
+  },
+  "http": {
+    "http://google.com": {
+      "headers": {
+        "cache-control": "private, max-age=0",
+        "content-encoding": "gzip",
+        "content-security-policy-report-only": "object-src \u0027none\u0027;base-uri \u0027self\u0027;script-src \u0027nonce-rgld_zrU-J3iPVo2rgHHgg\u0027 \u0027strict-dynamic\u0027 \u0027report-sample\u0027 \u0027unsafe-eval\u0027 \u0027unsafe-inline\u0027 https: http:;report-uri https://csp.withgoogle.com/csp/gws/other-hp",
+        "content-type": "text/html; charset=ISO-8859-1",
+        "date": "Fri, 29 Aug 2025 07:02:55 GMT",
+        "expires": "-1",
+        "p3p": "CP=\"This is not a P3P policy! See g.co/p3phelp for more info.\"",
+        "server": "gws",
+        "set-cookie": "AEC=AVh_V2iJKiN8w6_rK7vgLTMklbx4IM0Oi3M0ujlutvLH-t9xARS1ARY49g; expires=Wed, 25-Feb-2026 07:02:55 GMT; path=/; domain=.google.com; Secure; HttpOnly; SameSite=lax, NID=525=husHxn0OV7LlX0Tvpios5zOgCNmvzano7ElBH2ust_FtFT2_scRA4fya-WJnvhXJjF2Kv0M0O2nYXowYy_YL3FSVnum0pBhs0siGEgjjqemx9Ip0b9rciHmDIr33Z174MXy2KqnFq9888ZCakyykGIWwPzzC4SMACY3_vkDhkQ6eSjEUwNUD4WRnIuC5khUy7yvqPXQCn1Sz6pW7kg; expires=Sat, 28-Feb-2026 07:02:55 GMT; path=/; domain=.google.com; HttpOnly",
+        "transfer-encoding": "chunked",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "0"
+      },
+      "status": 200
+    },
+    "https://google.com": {
+      "headers": {
+        "accept-ch": "Sec-CH-Prefers-Color-Scheme",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "cache-control": "private, max-age=0",
+        "content-encoding": "gzip",
+        "content-security-policy-report-only": "object-src \u0027none\u0027;base-uri \u0027self\u0027;script-src \u0027nonce-YEXQex6ShSjcqSG4oRwnkQ\u0027 \u0027strict-dynamic\u0027 \u0027report-sample\u0027 \u0027unsafe-eval\u0027 \u0027unsafe-inline\u0027 https: http:;report-uri https://csp.withgoogle.com/csp/gws/other-hp",
+        "content-type": "text/html; charset=ISO-8859-1",
+        "date": "Fri, 29 Aug 2025 07:02:57 GMT",
+        "expires": "-1",
+        "p3p": "CP=\"This is not a P3P policy! See g.co/p3phelp for more info.\"",
+        "server": "gws",
+        "set-cookie": "NID=525=C-RyWRs7xLKkQuiybCIqPYus2tEjxB9UOx37Tx0XUa6_i39prpTRRA7vJR6_O6uMswmsTllRiHFhveof96awyiK8sZK-_Ubjqi3qnntnMTgVGYqiW6VxwT3TK7I2nZMQ0h2ovWLj9HAQxFwDeFY9co_0PFu_Eg-YbFdCHeeT43eR7tcsi1uQEpQmRVsA0HyxeKrx49rzJ7XaLg8huQ; expires=Sat, 28-Feb-2026 07:02:55 GMT; path=/; domain=.google.com; HttpOnly",
+        "transfer-encoding": "chunked",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "0"
+      },
+      "status": 200
+    }
+  },
+  "robots": null,
+  "ssl": {
+    "issuer": [
+      [
+        [
+          "countryName",
+          "US"
+        ]
+      ],
+      [
+        [
+          "organizationName",
+          "Google Trust Services"
+        ]
+      ],
+      [
+        [
+          "commonName",
+          "WR2"
+        ]
+      ]
+    ],
+    "notAfter": "Nov  3 19:21:10 2025 GMT",
+    "subject": [
+      [
+        [
+          "commonName",
+          "*.google.com"
+        ]
+      ]
+    ]
+  },
+  "whois": "{\u0027domain_name\u0027: [\u0027GOOGLE.COM\u0027, \u0027google.com\u0027], \u0027registrar\u0027: \u0027MarkMonitor, Inc.\u0027, \u0027whois_server\u0027: \u0027whois.markmonitor.com\u0027, \u0027referral_url\u0027: \u0027None\u0027, \u0027updated_date\u0027: [datetime.datetime(2019, 9, 9, 15, 39, 4), datetime.datetime(2024, 8, 2, 2, 17, 33, tzinfo=datetime.timezone.utc)], \u0027creation_date\u0027: [datetime.datetime(1997, 9, 15, 4, 0), datetime.datetime(1997, 9, 15, 7, 0, tzinfo=datetime.timezone.utc)], \u0027expiration_date\u0027: [datetime.datetime(2028, 9, 14, 4, 0), datetime.datetime(2028, 9, 13, 7, 0, tzinfo=datetime.timezone.utc)], \u0027name_servers\u0027: [\u0027NS1.GOOGLE.COM\u0027, \u0027NS2.GOOGLE.COM\u0027, \u0027NS3.GOOGLE.COM\u0027, \u0027NS4.GOOGLE.COM\u0027, \u0027ns1.google.com\u0027, \u0027ns3.google.com\u0027, \u0027ns4.google.com\u0027, \u0027ns2.google.com\u0027], \u0027status\u0027: [\u0027clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited\u0027, \u0027clientTransferProhibited https://icann.org/epp#clientTransferProhibited\u0027, \u0027clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited\u0027, \u0027serverDeleteProhibited https://icann.org/epp#serverDeleteProhibited\u0027, \u0027serverTransferProhibited https://icann.org/epp#serverTransferProhibited\u0027, \u0027serverUpdateProhibited https://icann.org/epp#serverUpdateProhibited\u0027, \u0027clientUpdateProhibited (https://www.icann.org/epp#clientUpdateProhibited)\u0027, \u0027clientTransferProhibited (https://www.icann.org/epp#clientTransferProhibited)\u0027, \u0027clientDeleteProhibited (https://www.icann.org/epp#clientDeleteProhibited)\u0027, \u0027serverUpdateProhibited (https://www.icann.org/epp#serverUpdateProhibited)\u0027, \u0027serverTransferProhibited (https://www.icann.org/epp#serverTransferProhibited)\u0027, \u0027serverDeleteProhibited (https://www.icann.org/epp#serverDeleteProhibited)\u0027], \u0027emails\u0027: [\u0027abusecomplaints@markmonitor.com\u0027, \u0027whoisrequest@markmonitor.com\u0027], \u0027dnssec\u0027: \u0027unsigned\u0027, \u0027name\u0027: \u0027None\u0027, \u0027org\u0027: \u0027Google LLC\u0027, \u0027address\u0027: \u0027None\u0027, \u0027city\u0027: \u0027None\u0027, \u0027state\u0027: \u0027None\u0027, \u0027registrant_postal_code\u0027: \u0027None\u0027, \u0027country\u0027: \u0027US\u0027}"
+}</pre>
+			<h2>Tools</h2>
+			
+				<h3>amass — OK</h3>
+				<pre>Found subdomains:
+www.google.com
+mail.google.com
+admin.google.com
+blog.google.com
+api.google.com
+support.google.com
+help.google.com
+docs.google.com
+images.google.com
+files.google.com
+download.google.com
+upload.google.com
+web.google.com
+ns1.google.com
+ns2.google.com
+smtp.google.com
+mobile.google.com
+m.google.com
+shop.google.com
+store.google.com
+news.google.com
+chat.google.com
+analytics.google.com
+archive.google.com
+search.google.com
+dns.google.com</pre>
+			
+				<h3>aquatone — OK</h3>
+				<pre>URL: http://google.com
+Status: 200
+Content-Type: text/html; charset=ISO-8859-1
+Content-Length: 19634
+Server: gws
+Title: Google
+Links found: 27
+Images found: 1
+Forms found: 1
+JavaScript detected</pre>
+			
+				<h3>js-analysis — OK</h3>
+				<pre>JavaScript Analysis:
+JavaScript files found: 0
+Inline JavaScript blocks: 6</pre>
+			
+				<h3>email-security — OK</h3>
+				<pre>Email Security Analysis:
+SPF Record: &#34;v=spf1 include:_spf.google.com ~all&#34;
+No DKIM record found
+DMARC Record: &#34;v=DMARC1; p=reject; rua=mailto:mailauth-reports@google.com&#34;
+MX Records: smtp.google.com. (Priority: 10)</pre>
+			
+				<h3>dnsx — OK</h3>
+				<pre>DNS Records found:
+A: 172.217.24.238
+AAAA: 2404:6800:4002:80b::200e
+MX: 10 smtp.google.com.
+NS: ns2.google.com., ns1.google.com., ns4.google.com., ns3.google.com.
+TXT: &#34;MS=E4A68B9AB2BB9670BCE15412F62916164C0B20BB&#34;, &#34;docusign=05958488-4752-4ef2-95eb-aa7ba8a3bd0e&#34;, &#34;google-site-verification=wD8N7i1JTNTkezJ49swvWW48f8_9xveREV4oB-0Hf5o&#34;, &#34;cisco-ci-domain-verification=47c38bc8c4b74b7233e9053220c1bbe76bcc1cd33c7acf7acd36cd6a5332004b&#34;, &#34;google-site-verification=TV9-DBe4R80X4v0M4U_bd_J9cpOJM0nikft0jAgjmsQ&#34;, &#34;globalsign-smime-dv=CDYX+XFHUw2wml6/Gb8+59BsH31KzUr6c1l2BPvqKX8=&#34;, &#34;apple-domain-verification=30afIBcvSuDV2PLX&#34;, &#34;v=spf1 include:_spf.google.com ~all&#34;, &#34;docusign=1b0a6754-49b1-4db5-8540-d2c12664b289&#34;, &#34;google-site-verification=4ibFUgB-wXLQ_S7vsXVomSTVamuOXBiVAzpR5IZ87D0&#34;, &#34;facebook-domain-verification=22rm551cu4k0ab0bxsw536tlds4h95&#34;, &#34;onetrust-domain-verification=de01ed21f2fa4d8781cbc3ffb89cf4ef&#34;
+SOA: ns1.google.com. dns-admin.google.com. 800393685 900 900 1800 60
+</pre>
+			
+				<h3>wafw00f — OK</h3>
+				<pre>No WAF detected</pre>
+			
+				<h3>ssl-analysis — OK</h3>
+				<pre>SSL Certificate Analysis for google.com:
+Subject: *.google.com
+Issuer: WR2
+Valid From: Aug 11 19:21:11 2025 GMT
+Valid Until: Nov  3 19:21:10 2025 GMT
+Days Remaining: 66
+Security Issues: None detected</pre>
+			
+				<h3>sublist3r — OK</h3>
+				<pre>Found subdomains:
+www.google.com
+mail.google.com
+admin.google.com
+blog.google.com
+api.google.com
+support.google.com
+help.google.com
+docs.google.com
+images.google.com
+files.google.com
+download.google.com
+upload.google.com
+web.google.com
+ns1.google.com
+ns2.google.com
+smtp.google.com
+mobile.google.com
+shop.google.com
+store.google.com
+news.google.com
+chat.google.com
+analytics.google.com
+archive.google.com
+search.google.com
+dns.google.com
+vpn.google.com</pre>
+			
+				<h3>ffuf-vhost — OK</h3>
+				<pre>Virtual hosts found:
+admin.google.com (302)
+mobile.google.com (301)
+m.google.com (302)
+www.google.com (200)
+mail.google.com (301)
+blog.google.com (301)
+store.google.com (301)
+support.google.com (301)
+help.google.com (301)
+images.google.com (200)</pre>
+			
+				<h3>naabu — OK</h3>
+				<pre>Open ports found:
+21 (ftp)</pre>
+			
+				<h3>httpx — OK</h3>
+				<pre>HTTP Probe Results:
+Status: 200
+Content-Type: text/html; charset=ISO-8859-1
+Content-Length: 19580
+Server: gws
+Title: Google</pre>
+			
+				<h3>mobile-analysis — OK</h3>
+				<pre>Mobile App Analysis:
+Mobile app path: /mobile (301)
+Mobile app path: /android (301)</pre>
+			
+				<h3>subfinder — OK</h3>
+				<pre>Found subdomains:
+www.google.com
+mail.google.com
+admin.google.com
+blog.google.com
+api.google.com
+support.google.com
+help.google.com
+docs.google.com
+images.google.com
+files.google.com
+download.google.com
+upload.google.com
+web.google.com
+ns1.google.com
+ns2.google.com
+smtp.google.com</pre>
+			
+				<h3>masscan — OK</h3>
+				<pre>Open ports found (1-1024):
+21 (ftp)
+80 (http)
+443 (https)</pre>
+			
+				<h3>whatweb — OK</h3>
+				<pre>Target: http://google.com
+Status: 200
+Technologies: Server: gws</pre>
+			
+				<h3>tech-profiling — OK</h3>
+				<pre>Technology Stack Profile:
+Server: gws
+Language/Framework: Node.js
+Language/Framework: Java
+Language/Framework: Go
+Frontend: Angular
+Frontend: Vue.js
+Database: Oracle
+Cloud/Hosting: AWS
+Cloud/Hosting: Azure
+Cloud/Hosting: Google Cloud
+Cloud/Hosting: DigitalOcean
+Analytics: Google Analytics
+Analytics: Facebook Pixel</pre>
+			
+				<h3>sniper — OK</h3>
+				<pre>=== SNIPER SCAN RESULTS FOR google.com ===
+Open ports: 21 (ftp), 443 (https)
+Web server: 200
+Server: gws
+Content-Type: text/html; charset=ISO-8859-1
+Error messages found
+DNS A records: 172.217.24.238</pre>
+			
+				<h3>feroxbuster — OK</h3>
+				<pre>Found directories:
+/ (301)
+/docs (301)
+/files (301)
+/images (301)
+/js (301)
+/downloads (301)</pre>
+			
+				<h3>social-intel — OK</h3>
+				<pre>Social Media Profiles Found:
+Facebook: https://www.facebook.com/google.com
+Twitter: https://twitter.com/google.com
+Instagram: https://www.instagram.com/google.com
+Reddit: https://www.reddit.com/r/google.com</pre>
+			
+				<h3>nmap — OK</h3>
+				<pre>Open ports found:
+21 (ftp)
+80 (http)
+443 (https)</pre>
+			
+				<h3>theHarvester — OK</h3>
+				<pre>Harvested information:
+Subdomain found: services.google.com
+Subdomain found: www.google.com
+Subdomain found: bughunters.google.com
+Email found: press@google.com</pre>
+			
+				<h3>nuclei — OK</h3>
+				<pre>Vulnerabilities found:
+Robots.txt accessible</pre>
+			
+				<h3>cloud-detect — OK</h3>
+				<pre>Cloud Infrastructure Detected:
+Cloud subdomain: cloud</pre>
+			
+				<h3>geo-intel — OK</h3>
+				<pre>Geolocation Intelligence:
+IP Address: 172.217.24.238
+Country: Malaysia
+Region: Kuala Lumpur
+City: Kuala Lumpur
+ISP: Google LLC
+Organization: Google LLC
+Timezone: Asia/Kuala_Lumpur</pre>
+			
+				<h3>nikto — OK</h3>
+				<pre>Web vulnerabilities found:
+Missing security headers: X-Content-Type-Options, Strict-Transport-Security</pre>
+			
+				<h3>gobuster-dns — OK</h3>
+				<pre>DNS brute force results:
+www.google.com
+mail.google.com
+admin.google.com
+blog.google.com
+api.google.com
+support.google.com
+help.google.com
+docs.google.com
+images.google.com
+files.google.com
+download.google.com
+upload.google.com
+web.google.com
+ns1.google.com
+ns2.google.com
+smtp.google.com
+mobile.google.com
+m.google.com
+shop.google.com
+store.google.com
+news.google.com
+chat.google.com
+analytics.google.com
+archive.google.com
+search.google.com
+dns.google.com</pre>
+			
+				<h3>api-discovery — OK</h3>
+				<pre>API Endpoints Discovered:
+/docs (301)
+/developer (301)
+/developers (301)
+/health (301)</pre>
+			
+				<h3>builtin-tcp — OK</h3>
+				<pre>No common TCP ports discovered open.</pre>
+			
+		</div>
+	</body>
+</html>
