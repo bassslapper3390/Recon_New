@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Recon Report</title>
+		<link rel="stylesheet" href="/static/style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1>Recon Report</h1>
+			<p><strong>Target:</strong> {{ request.domain or request.ip }}</p>
+			<h2>Passive Recon</h2>
+			<pre>{{ passive | tojson(indent=2) }}</pre>
+			<h2>Tools</h2>
+			{% for t in tools %}
+				<h3>{{ t.name }} — {{ 'OK' if t.success else 'FAILED' }}</h3>
+				<pre>{{ (t.output or t.error)[:20000] }}</pre>
+			{% endfor %}
+		</div>
+	</body>
+</html>

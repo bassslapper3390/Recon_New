@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Recon Report</title>
+		<link rel="stylesheet" href="/static/style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1>Recon Report</h1>
+			<p><strong>Target:</strong> nmap.scanme.org</p>
+			<h2>Passive Recon</h2>
+			<pre>{
+  "ct_logs": [],
+  "dns": {
+    "A": [
+      "45.33.32.156"
+    ],
+    "AAAA": [
+      "2600:3c01::f03c:91ff:fe18:bb2f"
+    ],
+    "MX_error": "The DNS response does not contain an answer to the question: nmap.scanme.org. IN MX",
+    "NS_error": "The DNS response does not contain an answer to the question: nmap.scanme.org. IN NS",
+    "TXT_error": "The DNS response does not contain an answer to the question: nmap.scanme.org. IN TXT"
+  },
+  "http": {
+    "http://nmap.scanme.org": {
+      "headers": {
+        "accept-ranges": "bytes",
+        "connection": "Keep-Alive",
+        "content-encoding": "gzip",
+        "content-length": "2068",
+        "content-type": "text/html",
+        "date": "Thu, 28 Aug 2025 14:14:03 GMT",
+        "keep-alive": "timeout=5, max=100",
+        "server": "Apache/2.4.7 (Ubuntu)",
+        "vary": "Accept-Encoding"
+      },
+      "status": 200
+    },
+    "https://nmap.scanme.org": {
+      "error": "All connection attempts failed"
+    }
+  },
+  "robots": null,
+  "ssl": {
+    "error": "[WinError 10061] No connection could be made because the target machine actively refused it"
+  },
+  "whois": "{\u0027domain_name\u0027: [\u0027scanme.org\u0027, \u0027SCANME.ORG\u0027], \u0027registrar\u0027: \u0027DYNADOT LLC\u0027, \u0027whois_server\u0027: \u0027whois.dynadot.com\u0027, \u0027referral_url\u0027: \u0027None\u0027, \u0027updated_date\u0027: [datetime.datetime(2023, 8, 31, 5, 4, 15), datetime.datetime(2023, 8, 26, 5, 16, 43)], \u0027creation_date\u0027: \u00272005-02-24 11:23:22\u0027, \u0027expiration_date\u0027: \u00272029-02-24 11:23:22\u0027, \u0027name_servers\u0027: [\u0027ns1.linode.com\u0027, \u0027ns2.linode.com\u0027, \u0027ns3.linode.com\u0027, \u0027ns4.linode.com\u0027, \u0027ns5.linode.com\u0027], \u0027status\u0027: \u0027clientTransferProhibited https://icann.org/epp#clientTransferProhibited\u0027, \u0027emails\u0027: \u0027abuse@dynadot.com\u0027, \u0027dnssec\u0027: \u0027unsigned\u0027, \u0027name\u0027: [\u0027REDACTED\u0027, \u0027REDACTED FOR PRIVACY\u0027], \u0027org\u0027: \u0027Super Privacy Service LTD c/o Dynadot\u0027, \u0027address\u0027: [\u0027REDACTED\u0027, \u0027PO Box 701\u0027], \u0027city\u0027: [\u0027REDACTED\u0027, \u0027San Mateo\u0027], \u0027state\u0027: \u0027California\u0027, \u0027registrant_postal_code\u0027: [\u0027REDACTED\u0027, \u002794401\u0027], \u0027country\u0027: \u0027US\u0027}"
+}</pre>
+			<h2>Tools</h2>
+			
+				<h3>subfinder — FAILED</h3>
+				<pre>subfinder not installed</pre>
+			
+				<h3>nikto — FAILED</h3>
+				<pre>nikto not installed</pre>
+			
+				<h3>dnsx — FAILED</h3>
+				<pre>dnsx not installed</pre>
+			
+				<h3>theHarvester — FAILED</h3>
+				<pre>theHarvester not installed</pre>
+			
+				<h3>sublist3r — FAILED</h3>
+				<pre></pre>
+			
+				<h3>gobuster-dns — FAILED</h3>
+				<pre>gobuster not installed</pre>
+			
+				<h3>httpx — FAILED</h3>
+				<pre></pre>
+			
+				<h3>wafw00f — FAILED</h3>
+				<pre></pre>
+			
+				<h3>aquatone — FAILED</h3>
+				<pre>aquatone not installed</pre>
+			
+				<h3>nmap — FAILED</h3>
+				<pre>nmap not installed</pre>
+			
+				<h3>amass — FAILED</h3>
+				<pre>amass not installed</pre>
+			
+				<h3>ffuf-vhost — FAILED</h3>
+				<pre>ffuf not installed</pre>
+			
+				<h3>naabu — FAILED</h3>
+				<pre>naabu not installed</pre>
+			
+				<h3>whatweb — FAILED</h3>
+				<pre></pre>
+			
+				<h3>masscan — FAILED</h3>
+				<pre>masscan not installed</pre>
+			
+				<h3>feroxbuster — FAILED</h3>
+				<pre>feroxbuster not installed</pre>
+			
+				<h3>nuclei — FAILED</h3>
+				<pre>nuclei not installed</pre>
+			
+		</div>
+	</body>
+</html>

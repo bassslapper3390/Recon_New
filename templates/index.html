@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Recon Pro</title>
+		<link rel="stylesheet" href="/static/style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1>Recon Pro</h1>
+			<p class="subtitle">Passive and active reconnaissance with reporting and AI insights.</p>
+			<div class="tools-panel" id="tools-panel">
+				<h3>Tools Availability</h3>
+				<ul id="tools-list"></ul>
+			</div>
+			<form id="scan-form" method="post" action="/scan">
+				<label>Domain (optional)</label>
+				<input type="text" name="domain" placeholder="example.com" />
+				<label>IP Address (optional)</label>
+				<input type="text" name="ip" placeholder="93.184.216.34" />
+				<button type="submit">Start Scan</button>
+			</form>
+			<div id="result" class="result"></div>
+			<div id="progress" class="progress" style="display:none;">
+				<div class="bar" id="progress-bar" style="width:0%"></div>
+				<div class="label" id="progress-label">0%</div>
+			</div>
+		</div>
+		<script>
+			let pollHandle = null;
+			async function pollProgress(id) {
+				const res = await fetch('/progress/' + id);
+				const data = await res.json();
+				document.getElementById('progress').style.display = 'block';
+				document.getElementById('progress-bar').style.width = data.percent + '%';
+				document.getElementById('progress-label').innerText = data.percent + '%';
+				if (data.status === 'completed') {
+					clearInterval(pollHandle);
+					document.getElementById('progress-label').innerText = '✓ Completed';
+				}
+			}
+			async function refreshTools() {
+				const res = await fetch('/tools');
+				const data = await res.json();
+				const list = document.getElementById('tools-list');
+				list.innerHTML = '';
+				Object.entries(data).forEach(([name, state]) => {
+					const li = document.createElement('li');
+					li.textContent = name + ' — ' + state;
+					li.className = state === 'missing' ? 'missing' : (state === 'wsl' ? 'wsl' : 'ok');
+					list.appendChild(li);
+				});
+			}
+			document.addEventListener('DOMContentLoaded', () => {
+				refreshTools();
+				setInterval(refreshTools, 10000);
+			});
+			document.getElementById('scan-form').addEventListener('submit', async (e) => {
+				e.preventDefault();
+				const form = e.target;
+				const formData = new FormData(form);
+				const res = await fetch('/scan', { method: 'POST', body: formData });
+				const data = await res.json();
+				document.getElementById('result').innerHTML = `Scan started. <a href="/report/${data.request_id}" target="_blank">View Report</a> (refresh until ready)`;
+				if (pollHandle) clearInterval(pollHandle);
+				pollHandle = setInterval(() => pollProgress(data.request_id), 1500);
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,12 @@
+services:
+  recon:
+    build: .
+    ports:
+      - "8088:8088"
+    volumes:
+      - ./reports:/app/reports
+      - ./templates:/app/templates:ro
+      - ./static:/app/static:ro
+    environment:
+      - OPENAI_API_KEY
+    restart: unless-stopped

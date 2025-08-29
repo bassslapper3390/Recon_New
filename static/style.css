@@ -1,0 +1,22 @@
+:root { color-scheme: light dark; }
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; padding: 0; }
+.container { max-width: 960px; margin: 40px auto; padding: 0 16px; }
+h1 { margin: 0 0 8px; font-weight: 700; }
+.subtitle { color: #666; margin-bottom: 24px; }
+form { display: grid; gap: 8px; max-width: 480px; }
+input { padding: 10px 12px; border: 1px solid #ccc; border-radius: 8px; }
+button { background: #0f62fe; color: white; border: 0; padding: 10px 14px; border-radius: 8px; cursor: pointer; }
+button:hover { background: #0353e9; }
+pre { background: rgba(0,0,0,0.05); padding: 12px; border-radius: 8px; overflow: auto; }
+.ai-summary { background: #fff8e1; padding: 12px; border-radius: 8px; border: 1px solid #f0d58c; }
+.result { margin-top: 16px; }
+.progress { position: relative; background: rgba(0,0,0,0.08); border-radius: 999px; height: 14px; margin-top: 12px; }
+.progress .bar { background: linear-gradient(90deg, #0f62fe, #42a5f5); height: 100%; border-radius: 999px; transition: width 0.4s ease; }
+.progress .label { margin-top: 8px; font-size: 12px; color: #333; }
+.tools-panel { border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px; margin-bottom: 16px; background: #fafafa; }
+.tools-panel h3 { margin: 0 0 8px; }
+.tools-panel ul { list-style: none; padding: 0; margin: 0; columns: 2; column-gap: 24px; }
+.tools-panel li { padding: 4px 0; font-size: 14px; }
+.tools-panel li.ok { color: #1a7f37; }
+.tools-panel li.wsl { color: #0f62fe; }
+.tools-panel li.missing { color: #b71c1c; }
