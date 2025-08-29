@@ -73,8 +73,23 @@ async def run_tools(req: ScanRequest) -> List[ToolResult]:
 	tasks.append(("feroxbuster", ext.feroxbuster_dirs(target)))
 	# Vulnerability templates
 	tasks.append(("nuclei", ext.nuclei_scan(target)))
+	
+	# Comprehensive reconnaissance
+	tasks.append(("sniper", ext.sniper_scan(target)))
 	# Screenshots (best-effort)
 	tasks.append(("aquatone", ext.aquatone_screenshot(target)))
+	
+	# Advanced scanning modules
+	if req.domain:
+		tasks.append(("ssl-analysis", ext.ssl_certificate_analysis(target)))
+		tasks.append(("email-security", ext.email_header_analysis(req.domain)))
+		tasks.append(("social-intel", ext.social_media_intel(req.domain)))
+		tasks.append(("cloud-detect", ext.cloud_infrastructure_detect(target)))
+		tasks.append(("api-discovery", ext.api_endpoint_discovery(target)))
+		tasks.append(("js-analysis", ext.javascript_analysis(target)))
+		tasks.append(("mobile-analysis", ext.mobile_app_analysis(req.domain)))
+		tasks.append(("geo-intel", ext.geolocation_intel(target)))
+		tasks.append(("tech-profiling", ext.technology_stack_profiling(target)))
 
 	async def run_named(name: str, coro):
 		try:

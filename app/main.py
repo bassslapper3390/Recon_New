@@ -34,11 +34,27 @@ async def index(request: Request):
 	return templates.TemplateResponse("index.html", {"request": request})
 
 @app.post("/scan", response_model=dict)
-async def scan(background_tasks: BackgroundTasks, domain: str = Form(None), ip: str = Form(None)):
+async def scan(background_tasks: BackgroundTasks, target: str = Form(...)):
 	request_id = str(uuid.uuid4())
-	scan_request = ScanRequest(domain=domain or None, ip=ip or None, request_id=request_id)
-	# Estimate steps: passive parts (~6) + number of external tasks (~13)
-	await progress_init(request_id, total_steps=20)
+	
+	# Parse target to determine if it's a domain or IP
+	domain = None
+	ip = None
+	
+	if target:
+		# Simple check: if it contains dots and no spaces, treat as domain/IP
+		if '.' in target and ' ' not in target:
+			# Check if it looks like an IP address
+			parts = target.split('.')
+			if len(parts) == 4 and all(part.isdigit() and 0 <= int(part) <= 255 for part in parts):
+				ip = target
+			else:
+				domain = target
+	
+	scan_request = ScanRequest(domain=domain, ip=ip, request_id=request_id)
+	
+	# Estimate steps: passive parts (~6) + external tasks (~25) + advanced scans (~9)
+	await progress_init(request_id, total_steps=40)
 	background_tasks.add_task(run_full_scan, scan_request)
 	return {"request_id": request_id, "status": "started"}
 

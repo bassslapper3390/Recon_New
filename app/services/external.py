@@ -859,4 +859,555 @@ async def aquatone_screenshot(target: str) -> Tuple[bool, str]:
 	except Exception as e:
 		return False, f"Page analysis failed: {str(e)}"
 
+# ============================================================================
+# ADVANCED SCANNING MODULES
+# ============================================================================
+
+async def ssl_certificate_analysis(target: str) -> Tuple[bool, str]:
+	"""Analyze SSL/TLS certificates for security issues"""
+	try:
+		import ssl
+		import socket
+		from datetime import datetime
+		
+		# Add https:// if no protocol specified
+		if not target.startswith(('http://', 'https://')):
+			target = 'https://' + target
+		
+		# Extract hostname from URL
+		hostname = target.replace('https://', '').replace('http://', '').split('/')[0]
+		
+		context = ssl.create_default_context()
+		with socket.create_connection((hostname, 443), timeout=10) as sock:
+			with context.wrap_socket(sock, server_hostname=hostname) as ssock:
+				cert = ssock.getpeercert()
+				
+				# Certificate details
+				subject = dict(x[0] for x in cert['subject'])
+				issuer = dict(x[0] for x in cert['issuer'])
+				
+				# Dates
+				not_before = datetime.strptime(cert['notBefore'], '%b %d %H:%M:%S %Y %Z')
+				not_after = datetime.strptime(cert['notAfter'], '%b %d %H:%M:%S %Y %Z')
+				days_remaining = (not_after - datetime.now()).days
+				
+				# Security analysis
+				security_issues = []
+				if days_remaining < 30:
+					security_issues.append(f"Certificate expires in {days_remaining} days")
+				if days_remaining < 0:
+					security_issues.append("Certificate has expired!")
+				
+				# Check for weak algorithms
+				if 'sha1' in str(cert).lower():
+					security_issues.append("Certificate uses weak SHA1 algorithm")
+				
+				result = f"""SSL Certificate Analysis for {hostname}:
+Subject: {subject.get('commonName', 'N/A')}
+Issuer: {issuer.get('commonName', 'N/A')}
+Valid From: {cert['notBefore']}
+Valid Until: {cert['notAfter']}
+Days Remaining: {days_remaining}
+Security Issues: {', '.join(security_issues) if security_issues else 'None detected'}"""
+				
+				return True, result
+				
+	except Exception as e:
+		return False, f"SSL analysis failed: {str(e)}"
+
+async def email_header_analysis(domain: str) -> Tuple[bool, str]:
+	"""Analyze email headers and SPF/DKIM records"""
+	try:
+		import dns.resolver
+		
+		results = []
+		
+		# Check SPF record
+		try:
+			spf_records = dns.resolver.resolve(domain, 'TXT')
+			for record in spf_records:
+				if 'v=spf1' in str(record):
+					results.append(f"SPF Record: {record}")
+					break
+		except:
+			results.append("No SPF record found")
+		
+		# Check DKIM record
+		try:
+			dkim_records = dns.resolver.resolve(f'default._domainkey.{domain}', 'TXT')
+			for record in dkim_records:
+				if 'v=DKIM1' in str(record):
+					results.append(f"DKIM Record: {record}")
+					break
+		except:
+			results.append("No DKIM record found")
+		
+		# Check DMARC record
+		try:
+			dmarc_records = dns.resolver.resolve(f'_dmarc.{domain}', 'TXT')
+			for record in dmarc_records:
+				if 'v=DMARC1' in str(record):
+					results.append(f"DMARC Record: {record}")
+					break
+		except:
+			results.append("No DMARC record found")
+		
+		# Check MX records
+		try:
+			mx_records = dns.resolver.resolve(domain, 'MX')
+			mx_list = [f"{record.exchange} (Priority: {record.preference})" for record in mx_records]
+			results.append(f"MX Records: {', '.join(mx_list)}")
+		except:
+			results.append("No MX records found")
+		
+		result = "Email Security Analysis:\n" + "\n".join(results)
+		return True, result
+		
+	except Exception as e:
+		return False, f"Email header analysis failed: {str(e)}"
+
+async def social_media_intel(domain: str) -> Tuple[bool, str]:
+	"""Gather social media intelligence"""
+	try:
+		import requests
+		
+		# Common social media platforms
+		social_platforms = {
+			'Facebook': f'https://www.facebook.com/{domain}',
+			'Twitter': f'https://twitter.com/{domain}',
+			'LinkedIn': f'https://www.linkedin.com/company/{domain}',
+			'Instagram': f'https://www.instagram.com/{domain}',
+			'YouTube': f'https://www.youtube.com/@{domain}',
+			'GitHub': f'https://github.com/{domain}',
+			'Reddit': f'https://www.reddit.com/r/{domain}'
+		}
+		
+		found_profiles = []
+		for platform, url in social_platforms.items():
+			try:
+				response = requests.get(url, timeout=5, allow_redirects=False)
+				if response.status_code in [200, 301, 302]:
+					found_profiles.append(f"{platform}: {url}")
+			except:
+				continue
+		
+		if found_profiles:
+			result = "Social Media Profiles Found:\n" + "\n".join(found_profiles)
+		else:
+			result = "No obvious social media profiles found"
+		
+		return True, result
+		
+	except Exception as e:
+		return False, f"Social media intelligence failed: {str(e)}"
+
+async def cloud_infrastructure_detect(target: str) -> Tuple[bool, str]:
+	"""Detect cloud infrastructure and services"""
+	try:
+		import requests
+		
+		# Add http:// if no protocol specified
+		if not target.startswith(('http://', 'https://')):
+			target = 'http://' + target
+		
+		cloud_indicators = {
+			'AWS': ['x-amz-cf-id', 'x-amz-id-2', 'x-amz-request-id', 'x-amz-version-id'],
+			'Azure': ['x-ms-version', 'x-ms-request-id', 'x-ms-blob-type'],
+			'Google Cloud': ['x-goog-generation', 'x-goog-metageneration', 'x-goog-storage-class'],
+			'Cloudflare': ['cf-ray', 'cf-cache-status', '__cfduid'],
+			'Fastly': ['x-fastly', 'fastly-ssl'],
+			'Heroku': ['x-request-id', 'x-runtime'],
+			'DigitalOcean': ['x-datacenter', 'x-loadbalancer']
+		}
+		
+		detected_clouds = []
+		
+		try:
+			response = requests.get(target, timeout=10, headers={'User-Agent': 'Mozilla/5.0'})
+			headers = response.headers
+			
+			for cloud, indicators in cloud_indicators.items():
+				for header in headers:
+					if any(indicator.lower() in header.lower() for indicator in indicators):
+						detected_clouds.append(cloud)
+						break
+			
+			# Check for cloud-specific subdomains
+			cloud_subdomains = ['aws', 'azure', 'gcp', 'cloud', 'cdn', 'static', 'media']
+			for subdomain in cloud_subdomains:
+				try:
+					test_url = f"http://{subdomain}.{target.replace('http://', '').replace('https://', '')}"
+					response = requests.get(test_url, timeout=5, allow_redirects=False)
+					if response.status_code in [200, 301, 302, 403]:
+						detected_clouds.append(f"Cloud subdomain: {subdomain}")
+				except:
+					continue
+					
+		except:
+			pass
+		
+		if detected_clouds:
+			result = f"Cloud Infrastructure Detected:\n" + "\n".join(set(detected_clouds))
+		else:
+			result = "No obvious cloud infrastructure detected"
+		
+		return True, result
+		
+	except Exception as e:
+		return False, f"Cloud infrastructure detection failed: {str(e)}"
+
+async def api_endpoint_discovery(target: str) -> Tuple[bool, str]:
+	"""Discover API endpoints and documentation"""
+	try:
+		import requests
+		
+		# Add http:// if no protocol specified
+		if not target.startswith(('http://', 'https://')):
+			target = 'http://' + target
+		
+		api_endpoints = []
+		
+		# Common API paths
+		api_paths = [
+			'/api', '/api/v1', '/api/v2', '/rest', '/graphql', '/swagger', '/docs',
+			'/openapi.json', '/swagger.json', '/api-docs', '/developer', '/developers',
+			'/sdk', '/client', '/clients', '/oauth', '/auth', '/login', '/register',
+			'/webhook', '/callback', '/status', '/health', '/ping', '/version'
+		]
+		
+		for path in api_paths:
+			try:
+				url = target.rstrip('/') + path
+				response = requests.get(url, timeout=5, allow_redirects=False)
+				if response.status_code in [200, 301, 302, 403, 401]:
+					api_endpoints.append(f"{path} ({response.status_code})")
+			except:
+				continue
+		
+		# Check for API documentation
+		doc_paths = ['/swagger-ui', '/redoc', '/api-docs', '/documentation', '/help']
+		for path in doc_paths:
+			try:
+				url = target.rstrip('/') + path
+				response = requests.get(url, timeout=5, allow_redirects=False)
+				if response.status_code in [200, 301, 302]:
+					api_endpoints.append(f"Documentation: {path} ({response.status_code})")
+			except:
+				continue
+		
+		if api_endpoints:
+			result = f"API Endpoints Discovered:\n" + "\n".join(api_endpoints)
+		else:
+			result = "No obvious API endpoints found"
+		
+		return True, result
+		
+	except Exception as e:
+		return False, f"API endpoint discovery failed: {str(e)}"
+
+async def javascript_analysis(target: str) -> Tuple[bool, str]:
+	"""Analyze JavaScript files for sensitive information"""
+	try:
+		import requests
+		import re
+		
+		# Add http:// if no protocol specified
+		if not target.startswith(('http://', 'https://')):
+			target = 'http://' + target
+		
+		js_analysis = []
+		
+		try:
+			response = requests.get(target, timeout=10)
+			html = response.text
+			
+			# Find JavaScript files
+			js_files = re.findall(r'src=["\']([^"\']*\.js[^"\']*)["\']', html)
+			js_files.extend(re.findall(r'href=["\']([^"\']*\.js[^"\']*)["\']', html))
+			
+			js_analysis.append(f"JavaScript files found: {len(js_files)}")
+			
+			# Check for inline JavaScript
+			inline_js = re.findall(r'<script[^>]*>(.*?)</script>', html, re.DOTALL)
+			if inline_js:
+				js_analysis.append(f"Inline JavaScript blocks: {len(inline_js)}")
+				
+				# Look for sensitive patterns in inline JS
+				sensitive_patterns = [
+					r'api[_-]?key["\']?\s*[:=]\s*["\'][^"\']+["\']',
+					r'password["\']?\s*[:=]\s*["\'][^"\']+["\']',
+					r'token["\']?\s*[:=]\s*["\'][^"\']+["\']',
+					r'secret["\']?\s*[:=]\s*["\'][^"\']+["\']',
+					r'aws[_-]?key["\']?\s*[:=]\s*["\'][^"\']+["\']'
+				]
+				
+				for pattern in sensitive_patterns:
+					matches = re.findall(pattern, str(inline_js), re.IGNORECASE)
+					if matches:
+						js_analysis.append(f"Potential sensitive data found: {len(matches)} instances")
+			
+			# Check for external JavaScript libraries
+			external_libs = re.findall(r'https?://[^"\']*\.js', html)
+			if external_libs:
+				js_analysis.append(f"External JavaScript libraries: {len(external_libs)}")
+				
+		except Exception as e:
+			js_analysis.append(f"Error analyzing JavaScript: {str(e)}")
+		
+		result = "JavaScript Analysis:\n" + "\n".join(js_analysis)
+		return True, result
+		
+	except Exception as e:
+		return False, f"JavaScript analysis failed: {str(e)}"
+
+async def mobile_app_analysis(domain: str) -> Tuple[bool, str]:
+	"""Analyze mobile app presence and configurations"""
+	try:
+		import requests
+		
+		mobile_analysis = []
+		
+		# Check for mobile app deep links
+		mobile_paths = [
+			'/.well-known/apple-app-site-association',
+			'/.well-known/assetlinks.json',
+			'/mobile', '/app', '/android', '/ios', '/mobile-app'
+		]
+		
+		for path in mobile_paths:
+			try:
+				url = f"http://{domain}{path}"
+				response = requests.get(url, timeout=5, allow_redirects=False)
+				if response.status_code in [200, 301, 302]:
+					mobile_analysis.append(f"Mobile app path: {path} ({response.status_code})")
+			except:
+				continue
+		
+		# Check for mobile-specific meta tags
+		try:
+			response = requests.get(f"http://{domain}", timeout=10)
+			html = response.text.lower()
+			
+			mobile_indicators = [
+				'viewport', 'mobile-optimized', 'mobile-friendly', 'responsive',
+				'apple-mobile-web-app', 'mobile-web-app-capable', 'format-detection'
+			]
+			
+			for indicator in mobile_indicators:
+				if indicator in html:
+					mobile_analysis.append(f"Mobile indicator: {indicator}")
+					
+		except:
+			pass
+		
+		if mobile_analysis:
+			result = "Mobile App Analysis:\n" + "\n".join(mobile_analysis)
+		else:
+			result = "No obvious mobile app configurations found"
+		
+		return True, result
+		
+	except Exception as e:
+		return False, f"Mobile app analysis failed: {str(e)}"
+
+async def geolocation_intel(target: str) -> Tuple[bool, str]:
+	"""Gather geolocation and infrastructure intelligence"""
+	try:
+		import requests
+		import socket
+		
+		geo_info = []
+		
+		# Get IP address if domain
+		if '.' in target:
+			try:
+				ip = socket.gethostbyname(target)
+				geo_info.append(f"IP Address: {ip}")
+			except:
+				ip = target
+		else:
+			ip = target
+		
+		# Use free geolocation service
+		try:
+			geo_response = requests.get(f"http://ip-api.com/json/{ip}", timeout=10)
+			if geo_response.status_code == 200:
+				geo_data = geo_response.json()
+				if geo_data.get('status') == 'success':
+					geo_info.extend([
+						f"Country: {geo_data.get('country', 'N/A')}",
+						f"Region: {geo_data.get('regionName', 'N/A')}",
+						f"City: {geo_data.get('city', 'N/A')}",
+						f"ISP: {geo_data.get('isp', 'N/A')}",
+						f"Organization: {geo_data.get('org', 'N/A')}",
+						f"Timezone: {geo_data.get('timezone', 'N/A')}"
+					])
+		except:
+			geo_info.append("Geolocation lookup failed")
+		
+		# Check for CDN presence
+		try:
+			response = requests.get(f"http://{target}", timeout=10, headers={'User-Agent': 'Mozilla/5.0'})
+			headers = response.headers
+			
+			cdn_indicators = {
+				'Cloudflare': ['cf-ray', 'cf-cache-status'],
+				'Akamai': ['x-akamai-transformed'],
+				'Fastly': ['x-fastly'],
+				'MaxCDN': ['x-cdn'],
+				'CDN77': ['x-cdn77']
+			}
+			
+			for cdn, indicators in cdn_indicators.items():
+				for header in headers:
+					if any(indicator.lower() in header.lower() for indicator in indicators):
+						geo_info.append(f"CDN: {cdn}")
+						break
+						
+		except:
+			pass
+		
+		result = "Geolocation Intelligence:\n" + "\n".join(geo_info)
+		return True, result
+		
+	except Exception as e:
+		return False, f"Geolocation intelligence failed: {str(e)}"
+
+async def technology_stack_profiling(target: str) -> Tuple[bool, str]:
+	"""Comprehensive technology stack profiling"""
+	try:
+		import requests
+		from bs4 import BeautifulSoup
+		
+		# Add http:// if no protocol specified
+		if not target.startswith(('http://', 'https://')):
+			target = 'http://' + target
+		
+		tech_stack = []
+		
+		try:
+			response = requests.get(target, timeout=15, headers={
+				'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+			})
+			html = response.text
+			headers = response.headers
+			
+			# Server technologies
+			server = headers.get('Server', '')
+			if server:
+				tech_stack.append(f"Server: {server}")
+			
+			# Programming languages and frameworks
+			language_indicators = {
+				'PHP': ['php', 'wordpress', 'joomla', 'drupal', 'laravel', 'symfony'],
+				'Python': ['python', 'django', 'flask', 'fastapi', 'bottle'],
+				'Node.js': ['node', 'express', 'next.js', 'nuxt.js', 'react', 'vue'],
+				'Java': ['java', 'spring', 'struts', 'jsf', 'servlet'],
+				'.NET': ['asp.net', 'dotnet', 'mvc', 'webforms', 'blazor'],
+				'Ruby': ['ruby', 'rails', 'sinatra', 'jekyll'],
+				'Go': ['go', 'golang', 'gin', 'echo', 'fiber']
+			}
+			
+			for language, indicators in language_indicators.items():
+				if any(indicator.lower() in html.lower() for indicator in indicators):
+					tech_stack.append(f"Language/Framework: {language}")
+			
+			# Frontend technologies
+			frontend_tech = {
+				'Bootstrap': ['bootstrap', 'bootstrap.min.css'],
+				'jQuery': ['jquery', 'jquery.min.js'],
+				'React': ['react', 'react-dom', 'jsx'],
+				'Angular': ['angular', 'ng-', 'angular.js'],
+				'Vue.js': ['vue', 'vue.js', 'v-'],
+				'Svelte': ['svelte', 'svelte.js'],
+				'TypeScript': ['typescript', '.ts', 'tsconfig']
+			}
+			
+			for tech, indicators in frontend_tech.items():
+				if any(indicator.lower() in html.lower() for indicator in indicators):
+					tech_stack.append(f"Frontend: {tech}")
+			
+			# Database technologies
+			db_indicators = {
+				'MySQL': ['mysql', 'mysqli'],
+				'PostgreSQL': ['postgresql', 'postgres'],
+				'MongoDB': ['mongodb', 'mongoose'],
+				'Redis': ['redis'],
+				'SQLite': ['sqlite'],
+				'Oracle': ['oracle', 'oci']
+			}
+			
+			for db, indicators in db_indicators.items():
+				if any(indicator.lower() in html.lower() for indicator in indicators):
+					tech_stack.append(f"Database: {db}")
+			
+			# Cloud and hosting
+			cloud_indicators = {
+				'AWS': ['aws', 'amazon', 's3', 'ec2', 'lambda'],
+				'Azure': ['azure', 'microsoft', 'blob', 'function'],
+				'Google Cloud': ['gcp', 'google', 'cloud', 'firebase'],
+				'Heroku': ['heroku'],
+				'DigitalOcean': ['digitalocean', 'do'],
+				'Vercel': ['vercel'],
+				'Netlify': ['netlify']
+			}
+			
+			for cloud, indicators in cloud_indicators.items():
+				if any(indicator.lower() in html.lower() for indicator in indicators):
+					tech_stack.append(f"Cloud/Hosting: {cloud}")
+			
+			# Analytics and tracking
+			analytics_tech = {
+				'Google Analytics': ['google-analytics', 'gtag', 'ga('],
+				'Google Tag Manager': ['gtm', 'googletagmanager'],
+				'Facebook Pixel': ['facebook', 'fbq', 'pixel'],
+				'Hotjar': ['hotjar'],
+				'Mixpanel': ['mixpanel'],
+				'Amplitude': ['amplitude']
+			}
+			
+			for analytics, indicators in analytics_tech.items():
+				if any(indicator.lower() in html.lower() for indicator in indicators):
+					tech_stack.append(f"Analytics: {analytics}")
+					
+		except Exception as e:
+			tech_stack.append(f"Error analyzing technology stack: {str(e)}")
+		
+		if tech_stack:
+			result = "Technology Stack Profile:\n" + "\n".join(tech_stack)
+		else:
+			result = "No obvious technologies detected"
+		
+		return True, result
+		
+	except Exception as e:
+		return False, f"Technology stack profiling failed: {str(e)}"
+
+# ============================================================================
+# SCANNING ORCHESTRATION FUNCTIONS
+# ============================================================================
+
+async def run_advanced_scans(target: str) -> Dict[str, Tuple[bool, str]]:
+	"""Run all advanced scanning modules"""
+	advanced_scans = {
+		'ssl_analysis': ssl_certificate_analysis,
+		'email_security': email_header_analysis,
+		'social_intel': social_media_intel,
+		'cloud_detect': cloud_infrastructure_detect,
+		'api_discovery': api_endpoint_discovery,
+		'js_analysis': javascript_analysis,
+		'mobile_analysis': mobile_app_analysis,
+		'geo_intel': geolocation_intel,
+		'tech_profiling': technology_stack_profiling
+	}
+	
+	results = {}
+	for scan_name, scan_func in advanced_scans.items():
+		try:
+			results[scan_name] = await scan_func(target)
+		except Exception as e:
+			results[scan_name] = (False, f"Scan failed: {str(e)}")
+	
+	return results
+
 
