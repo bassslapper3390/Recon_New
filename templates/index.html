@@ -206,9 +206,9 @@
                 
                 if (response.ok) {
                     const data = await response.json();
-                    if (data.report_id) {
+                    if (data.request_id) {
                         // Start progress monitoring
-                        monitorProgress(data.report_id, progressFill, progressText, progressStatus);
+                        monitorProgress(data.request_id, progressFill, progressText, progressStatus);
                     }
                 } else {
                     progressStatus.textContent = 'Scan failed to start';
@@ -218,29 +218,32 @@
             }
         });
 
-        async function monitorProgress(reportId, progressFill, progressText, progressStatus) {
+        async function monitorProgress(requestId, progressFill, progressText, progressStatus) {
             const maxProgress = 100;
             let currentProgress = 0;
             
             const interval = setInterval(async () => {
                 try {
-                    const response = await fetch(`/progress/${reportId}`);
+                    const response = await fetch(`/progress/${requestId}`);
                     if (response.ok) {
                         const data = await response.json();
-                        currentProgress = Math.min(data.progress || 0, maxProgress);
-                        
-                        progressFill.style.width = currentProgress + '%';
-                        progressText.textContent = currentProgress + '% Complete';
-                        
+                        const total = Number(data.total || 0);
+                        const completed = Number(data.completed || 0);
+                        const percentRaw = total > 0 ? (completed / total) * 100 : (Number(data.percent || 0));
+                        currentProgress = Math.min(percentRaw, maxProgress);
+
+                        progressFill.style.width = currentProgress.toFixed(1) + '%';
+                        progressText.textContent = `${currentProgress.toFixed(1)}% • ${completed}/${total} steps`;
+
                         if (data.status) {
-                            progressStatus.textContent = data.status;
+                            progressStatus.textContent = data.status === 'running' ? 'Scanning…' : data.status;
                         }
-                        
-                        if (currentProgress >= maxProgress) {
+
+                        if (currentProgress >= maxProgress || data.status === 'completed') {
                             clearInterval(interval);
                             progressStatus.textContent = 'Scan completed! Redirecting to report...';
                             setTimeout(() => {
-                                window.location.href = `/report/${reportId}`;
+                                window.location.href = `/report/${requestId}`;
                             }, 2000);
                         }
                     }
