@@ -4,20 +4,30 @@ import ssl as ssl_lib
 import httpx
 import whois
 import dns.resolver
+import asyncio
 
 async def resolve_dns(domain: str) -> Dict[str, Any]:
 	results: Dict[str, Any] = {}
-	try:
-		answers_a = dns.resolver.resolve(domain, 'A')
-		results['A'] = [rdata.address for rdata in answers_a]
-	except Exception as e:
-		results['A_error'] = str(e)
-	for record in ['AAAA', 'MX', 'NS', 'TXT']:
+
+	async def _resolve(record: str):
 		try:
-			answers = dns.resolver.resolve(domain, record)
-			results[record] = [str(r.to_text()) for r in answers]
+			answers = await asyncio.to_thread(dns.resolver.resolve, domain, record)
+			if record == 'A':
+				results['A'] = [rdata.address for rdata in answers]
+			else:
+				results[record] = [str(r.to_text()) for r in answers]
 		except Exception as e:
-			results[f'{record}_error'] = str(e)
+			key = 'A_error' if record == 'A' else f'{record}_error'
+			results[key] = str(e)
+
+	# Run common records concurrently without blocking the event loop
+	await asyncio.gather(
+		_resolve('A'),
+		_resolve('AAAA'),
+		_resolve('MX'),
+		_resolve('NS'),
+		_resolve('TXT'),
+	)
 	return results
 
 async def lookup_whois(domain: Optional[str], ip: Optional[str]) -> Dict[str, Any]:
@@ -25,7 +35,8 @@ async def lookup_whois(domain: Optional[str], ip: Optional[str]) -> Dict[str, An
 		target = domain or ip
 		if not target:
 			return {"error": "no target"}
-		data = whois.whois(target)
+		# WHOIS is blocking; offload to a thread to avoid blocking the event loop
+		data = await asyncio.to_thread(whois.whois, target)
 		return {k: (str(v) if not isinstance(v, (dict, list)) else v) for k, v in data.items()}
 	except Exception as e:
 		return {"error": str(e)}

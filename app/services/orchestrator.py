@@ -93,8 +93,11 @@ async def run_tools(req: ScanRequest) -> List[ToolResult]:
 
 	async def run_named(name: str, coro):
 		try:
-			success, output = await coro
+			# Ensure each tool has a hard timeout so a single hang won't block progress
+			success, output = await asyncio.wait_for(coro, timeout=25)
 			return ToolResult(name=name, success=success, output=output if success else None, error=None if success else output)
+		except asyncio.TimeoutError:
+			return ToolResult(name=name, success=False, error="timeout after 25s")
 		except Exception as e:
 			return ToolResult(name=name, success=False, error=str(e))
 
