@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Recon Report</title>
+		<link rel="stylesheet" href="/static/style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1>Recon Report</h1>
+			<p><strong>Target:</strong> scanme.nmap.org</p>
+			<h2>Passive Recon</h2>
+			<pre>{
+  "ct_logs": [],
+  "dns": {
+    "A": [
+      "45.33.32.156"
+    ],
+    "AAAA": [
+      "2600:3c01::f03c:91ff:fe18:bb2f"
+    ],
+    "MX_error": "The DNS response does not contain an answer to the question: scanme.nmap.org. IN MX",
+    "NS_error": "The DNS response does not contain an answer to the question: scanme.nmap.org. IN NS",
+    "TXT_error": "The DNS response does not contain an answer to the question: scanme.nmap.org. IN TXT"
+  },
+  "http": {
+    "http://scanme.nmap.org": {
+      "headers": {
+        "accept-ranges": "bytes",
+        "connection": "Keep-Alive",
+        "content-encoding": "gzip",
+        "content-length": "2068",
+        "content-type": "text/html",
+        "date": "Fri, 29 Aug 2025 04:25:14 GMT",
+        "keep-alive": "timeout=5, max=100",
+        "server": "Apache/2.4.7 (Ubuntu)",
+        "vary": "Accept-Encoding"
+      },
+      "status": 200
+    },
+    "https://scanme.nmap.org": {
+      "error": "All connection attempts failed"
+    }
+  },
+  "robots": null,
+  "ssl": {
+    "error": "[WinError 10061] No connection could be made because the target machine actively refused it"
+  },
+  "whois": "{\u0027domain_name\u0027: [\u0027nmap.org\u0027, \u0027NMAP.ORG\u0027], \u0027registrar\u0027: \u0027DYNADOT LLC\u0027, \u0027whois_server\u0027: \u0027whois.dynadot.com\u0027, \u0027referral_url\u0027: \u0027None\u0027, \u0027updated_date\u0027: [datetime.datetime(2023, 8, 31, 5, 5, 15), datetime.datetime(2023, 8, 26, 5, 16, 38)], \u0027creation_date\u0027: \u00271999-01-18 05:00:00\u0027, \u0027expiration_date\u0027: \u00272029-01-18 05:00:00\u0027, \u0027name_servers\u0027: [\u0027ns1.linode.com\u0027, \u0027ns2.linode.com\u0027, \u0027ns3.linode.com\u0027, \u0027ns4.linode.com\u0027, \u0027ns5.linode.com\u0027], \u0027status\u0027: \u0027clientTransferProhibited https://icann.org/epp#clientTransferProhibited\u0027, \u0027emails\u0027: \u0027abuse@dynadot.com\u0027, \u0027dnssec\u0027: \u0027unsigned\u0027, \u0027name\u0027: [\u0027REDACTED\u0027, \u0027REDACTED FOR PRIVACY\u0027], \u0027org\u0027: \u0027Super Privacy Service LTD c/o Dynadot\u0027, \u0027address\u0027: [\u0027REDACTED\u0027, \u0027PO Box 701\u0027], \u0027city\u0027: [\u0027REDACTED\u0027, \u0027San Mateo\u0027], \u0027state\u0027: \u0027California\u0027, \u0027registrant_postal_code\u0027: [\u0027REDACTED\u0027, \u002794401\u0027], \u0027country\u0027: \u0027US\u0027}"
+}</pre>
+			<h2>Tools</h2>
+			
+				<h3>nuclei — OK</h3>
+				<pre>No obvious vulnerabilities detected</pre>
+			
+				<h3>ffuf-vhost — OK</h3>
+				<pre>Virtual hosts found:
+dev.scanme.nmap.org (200)
+staging.scanme.nmap.org (200)
+test.scanme.nmap.org (200)
+beta.scanme.nmap.org (200)
+alpha.scanme.nmap.org (200)
+demo.scanme.nmap.org (200)
+admin.scanme.nmap.org (200)
+api.scanme.nmap.org (200)
+mobile.scanme.nmap.org (200)
+m.scanme.nmap.org (200)
+app.scanme.nmap.org (200)
+web.scanme.nmap.org (200)
+www.scanme.nmap.org (200)
+mail.scanme.nmap.org (200)
+ftp.scanme.nmap.org (200)
+blog.scanme.nmap.org (200)
+shop.scanme.nmap.org (200)
+store.scanme.nmap.org (200)
+support.scanme.nmap.org (200)
+help.scanme.nmap.org (200)
+docs.scanme.nmap.org (200)
+cdn.scanme.nmap.org (200)
+static.scanme.nmap.org (200)
+img.scanme.nmap.org (200)
+images.scanme.nmap.org (200)</pre>
+			
+				<h3>nmap — FAILED</h3>
+				<pre>nmap scan failed: name &#39;nmap&#39; is not defined</pre>
+			
+				<h3>theHarvester — OK</h3>
+				<pre>No emails or subdomains found</pre>
+			
+				<h3>whatweb — OK</h3>
+				<pre>Target: http://scanme.nmap.org
+Status: 200
+Technologies: Server: Apache/2.4.7 (Ubuntu), Google Analytics</pre>
+			
+				<h3>subfinder — OK</h3>
+				<pre>No common subdomains found</pre>
+			
+				<h3>naabu — OK</h3>
+				<pre>Open ports found:
+22 (ssh)
+80 (http)</pre>
+			
+				<h3>feroxbuster — OK</h3>
+				<pre>Found directories:
+/ (200)
+/images (301)</pre>
+			
+				<h3>masscan — OK</h3>
+				<pre>Open ports found (1-1024):
+22 (ssh)
+80 (http)</pre>
+			
+				<h3>aquatone — OK</h3>
+				<pre>URL: http://scanme.nmap.org
+Status: 200
+Content-Type: text/html
+Content-Length: 6974
+Server: Apache/2.4.7 (Ubuntu)
+Title: Go ahead and ScanMe!
+Links found: 42
+Images found: 9
+Forms found: 2
+JavaScript detected</pre>
+			
+				<h3>httpx — OK</h3>
+				<pre>HTTP Probe Results:
+Status: 200
+Content-Type: text/html
+Content-Length: 6974
+Server: Apache/2.4.7 (Ubuntu)
+Title: Go ahead and ScanMe!</pre>
+			
+				<h3>nikto — OK</h3>
+				<pre>Web vulnerabilities found:
+Directory listing enabled
+Server information disclosed: Apache/2.4.7 (Ubuntu)
+Missing security headers: X-Frame-Options, X-Content-Type-Options, X-XSS-Protection, Strict-Transport-Security</pre>
+			
+				<h3>dnsx — OK</h3>
+				<pre>DNS Records found:
+A: 45.33.32.156
+AAAA: 2600:3c01::f03c:91ff:fe18:bb2f
+</pre>
+			
+				<h3>gobuster-dns — OK</h3>
+				<pre>No subdomains found via DNS brute force</pre>
+			
+				<h3>wafw00f — OK</h3>
+				<pre>No WAF detected</pre>
+			
+				<h3>amass — OK</h3>
+				<pre>No subdomains found</pre>
+			
+				<h3>sublist3r — OK</h3>
+				<pre>No subdomains found</pre>
+			
+				<h3>builtin-tcp — OK</h3>
+				<pre>Open ports: 22, 80</pre>
+			
+		</div>
+	</body>
+</html>
