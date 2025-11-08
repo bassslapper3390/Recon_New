@@ -1,0 +1,388 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Recon Report</title>
+		<link rel="stylesheet" href="/static/style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1>Recon Report</h1>
+			<p><strong>Target:</strong> ndtv.com</p>
+			<h2>Passive Recon</h2>
+			<pre>{
+  "ct_logs": [],
+  "dns": {
+    "AAAA": [
+      "2600:140f:2e00:580::24e8",
+      "2600:140f:2e00:592::24e8"
+    ],
+    "A_error": "The resolution lifetime expired after 5.108 seconds: Server Do53:172.20.10.1@53 answered The DNS operation timed out.; Server Do53:192.168.1.1@53 answered The DNS operation timed out.; Server Do53:192.168.0.1@53 answered The DNS operation timed out.",
+    "MX": [
+      "0 ndtv-com.mail.protection.outlook.com."
+    ],
+    "NS": [
+      "a3-67.akam.net.",
+      "a26-66.akam.net.",
+      "a7-65.akam.net.",
+      "a1-18.akam.net.",
+      "a4-64.akam.net.",
+      "a2-65.akam.net."
+    ],
+    "TXT_error": "The resolution lifetime expired after 5.105 seconds: Server Do53:172.20.10.1@53 answered The DNS operation timed out.; Server Do53:192.168.1.1@53 answered ; Server Do53:192.168.1.1@53 answered The DNS operation timed out.; Server Do53:192.168.0.1@53 answered The DNS operation timed out."
+  },
+  "http": {
+    "http://ndtv.com": {
+      "headers": {
+        "cache-control": "max-age=0, no-cache",
+        "connection": "close",
+        "content-length": "366",
+        "content-type": "text/html",
+        "date": "Thu, 25 Sep 2025 13:05:25 GMT",
+        "expires": "Thu, 25 Sep 2025 13:05:25 GMT",
+        "mime-version": "1.0",
+        "pragma": "no-cache",
+        "server-timing": "ak_p; desc=\"1758805525779_1750730102_358234752_25_6840_9_24_-\";dur=1",
+        "strict-transport-security": "max-age=15768000 ; includeSubDomains",
+        "vary": "User-Agent"
+      },
+      "status": 403
+    },
+    "https://ndtv.com": {
+      "headers": {
+        "cache-control": "max-age=0, no-cache",
+        "connection": "close",
+        "content-length": "366",
+        "content-type": "text/html",
+        "date": "Thu, 25 Sep 2025 13:05:25 GMT",
+        "expires": "Thu, 25 Sep 2025 13:05:25 GMT",
+        "mime-version": "1.0",
+        "pragma": "no-cache",
+        "server-timing": "ak_p; desc=\"1758805525842_1750730102_358234808_33_9429_7_15_-\";dur=1",
+        "strict-transport-security": "max-age=15768000 ; includeSubDomains",
+        "vary": "User-Agent"
+      },
+      "status": 403
+    }
+  },
+  "robots": null,
+  "ssl": {
+    "issuer": [
+      [
+        [
+          "countryName",
+          "US"
+        ]
+      ],
+      [
+        [
+          "organizationName",
+          "DigiCert Inc"
+        ]
+      ],
+      [
+        [
+          "commonName",
+          "DigiCert TLS RSA SHA256 2020 CA1"
+        ]
+      ]
+    ],
+    "notAfter": "Jan  7 23:59:59 2026 GMT",
+    "subject": [
+      [
+        [
+          "countryName",
+          "IN"
+        ]
+      ],
+      [
+        [
+          "stateOrProvinceName",
+          "Delhi"
+        ]
+      ],
+      [
+        [
+          "localityName",
+          "New Delhi"
+        ]
+      ],
+      [
+        [
+          "organizationName",
+          "NDTV Convergence Limited"
+        ]
+      ],
+      [
+        [
+          "commonName",
+          "ndtv.com"
+        ]
+      ]
+    ]
+  },
+  "whois": "{\u0027domain_name\u0027: \u0027NDTV.COM\u0027, \u0027registrar\u0027: \u0027Network Solutions, LLC\u0027, \u0027whois_server\u0027: \u0027whois.networksolutions.com\u0027, \u0027referral_url\u0027: \u0027None\u0027, \u0027updated_date\u0027: [datetime.datetime(2022, 9, 25, 4, 34, 4), datetime.datetime(2023, 4, 19, 9, 19, 35)], \u0027creation_date\u0027: \u00271996-09-26 04:00:00\u0027, \u0027expiration_date\u0027: \u00272032-09-25 04:00:00\u0027, \u0027name_servers\u0027: [\u0027A1-18.AKAM.NET\u0027, \u0027A2-65.AKAM.NET\u0027, \u0027A26-66.AKAM.NET\u0027, \u0027A3-67.AKAM.NET\u0027, \u0027A4-64.AKAM.NET\u0027, \u0027A7-65.AKAM.NET\u0027], \u0027status\u0027: \u0027clientTransferProhibited https://icann.org/epp#clientTransferProhibited\u0027, \u0027emails\u0027: [\u0027domain.operations@web.com\u0027, \u0027jy6px5v66j3@networksolutionsprivateregistration.com\u0027], \u0027dnssec\u0027: \u0027unsigned\u0027, \u0027name\u0027: \u0027PERFECT PRIVACY, LLC\u0027, \u0027org\u0027: \u0027None\u0027, \u0027address\u0027: \u00275335 Gate Parkway care of Network Solutions PO Box 459\u0027, \u0027city\u0027: \u0027Jacksonville\u0027, \u0027state\u0027: \u0027FL\u0027, \u0027registrant_postal_code\u0027: \u002732256\u0027, \u0027country\u0027: \u0027US\u0027}"
+}</pre>
+			<h2>Tools</h2>
+			
+				<h3>httpx — OK</h3>
+				<pre>HTTP Probe Results:
+Status: 403
+Content-Type: text/html
+Content-Length: 366
+Server: 
+Title: Access Denied</pre>
+			
+				<h3>subfinder — OK</h3>
+				<pre>Found subdomains:
+www.ndtv.com
+admin.ndtv.com
+cdn.ndtv.com</pre>
+			
+				<h3>whatweb — OK</h3>
+				<pre>Target: http://ndtv.com
+Status: 403
+Technologies: None detected</pre>
+			
+				<h3>ffuf-vhost — OK</h3>
+				<pre>Virtual hosts found:
+mobile.ndtv.com (301)
+m.ndtv.com (301)
+www.ndtv.com (403)
+cdn.ndtv.com (301)</pre>
+			
+				<h3>amass — OK</h3>
+				<pre>Found subdomains:
+www.ndtv.com
+admin.ndtv.com
+cdn.ndtv.com
+mobile.ndtv.com
+m.ndtv.com
+news.ndtv.com
+search.ndtv.com</pre>
+			
+				<h3>feroxbuster — OK</h3>
+				<pre>Found directories:
+/ (301)
+/admin (301)
+/login (301)
+/wp-admin (301)
+/phpmyadmin (301)
+/config (301)
+/backup (301)
+/api (301)
+/docs (301)
+/test (301)
+/dev (301)
+/stage (301)
+/beta (301)
+/old (301)
+/archive (301)
+/files (301)
+/images (301)
+/css (301)
+/js (301)
+/uploads (301)
+/downloads (301)
+/temp (301)
+/cache (301)
+/logs (301)
+/includes (301)
+/lib (301)
+/src (301)
+/bin (301)
+/etc (301)
+/var (301)</pre>
+			
+				<h3>email-security — OK</h3>
+				<pre>Email Security Analysis:
+No SPF record found
+No DKIM record found
+DMARC Record: &#34;v=DMARC1; p=reject; pct=100; rua=mailto:azad@ndtv.com; ruf=mailto:azad@ndtv.com; fo=1&#34;
+MX Records: ndtv-com.mail.protection.outlook.com. (Priority: 0)</pre>
+			
+				<h3>dnsx — OK</h3>
+				<pre>DNS Records found:
+A: 23.58.1.33
+AAAA: 2600:140f:2e00:592::24e8, 2600:140f:2e00:580::24e8
+MX: 0 ndtv-com.mail.protection.outlook.com.
+NS: a4-64.akam.net., a7-65.akam.net., a2-65.akam.net., a1-18.akam.net., a26-66.akam.net., a3-67.akam.net.
+SOA: a1-18.akam.net. hostmaster.akamai.com. 2018051849 28800 7200 604800 600
+</pre>
+			
+				<h3>masscan — OK</h3>
+				<pre>Open ports found (1-1024):
+80 (http)
+443 (https)</pre>
+			
+				<h3>geo-intel — OK</h3>
+				<pre>Geolocation Intelligence:
+IP Address: 23.58.1.33
+Country: India
+Region: National Capital Territory of Delhi
+City: New Delhi
+ISP: Akamai Technologies, Inc.
+Organization: Akamai Technologies, Inc.
+Timezone: Asia/Kolkata</pre>
+			
+				<h3>social-intel — OK</h3>
+				<pre>Social Media Profiles Found:
+Facebook: https://www.facebook.com/ndtv.com
+Twitter: https://twitter.com/ndtv.com
+Instagram: https://www.instagram.com/ndtv.com
+Reddit: https://www.reddit.com/r/ndtv.com</pre>
+			
+				<h3>wafw00f — OK</h3>
+				<pre>No WAF detected</pre>
+			
+				<h3>nuclei — OK</h3>
+				<pre>Vulnerabilities found:
+Potential open redirect vulnerability</pre>
+			
+				<h3>nikto — OK</h3>
+				<pre>Web vulnerabilities found:
+Admin panel accessible: /admin
+Admin panel accessible: /administrator
+Admin panel accessible: /admin.php
+Admin panel accessible: /admin.html
+Admin panel accessible: /wp-admin
+Admin panel accessible: /phpmyadmin
+Missing security headers: X-Frame-Options, X-Content-Type-Options, X-XSS-Protection</pre>
+			
+				<h3>sublist3r — OK</h3>
+				<pre>Found subdomains:
+www.ndtv.com
+admin.ndtv.com
+mobile.ndtv.com
+m.ndtv.com
+news.ndtv.com
+search.ndtv.com</pre>
+			
+				<h3>cloud-detect — OK</h3>
+				<pre>Cloud Infrastructure Detected:
+Cloud subdomain: cdn</pre>
+			
+				<h3>aquatone — OK</h3>
+				<pre>URL: http://ndtv.com
+Status: 403
+Content-Type: text/html
+Content-Length: 364
+Server: N/A
+Title: Access Denied
+Links found: 0
+Images found: 0
+Forms found: 0</pre>
+			
+				<h3>tech-profiling — OK</h3>
+				<pre>Technology Stack Profile:
+Language/Framework: Node.js
+Language/Framework: Java
+Language/Framework: Go
+Frontend: jQuery
+Frontend: React
+Frontend: Angular
+Frontend: Vue.js
+Frontend: TypeScript
+Database: Oracle
+Cloud/Hosting: AWS
+Cloud/Hosting: Azure
+Cloud/Hosting: Google Cloud
+Cloud/Hosting: DigitalOcean
+Analytics: Google Tag Manager
+Analytics: Facebook Pixel</pre>
+			
+				<h3>gobuster-dns — OK</h3>
+				<pre>DNS brute force results:
+www.ndtv.com
+admin.ndtv.com
+cdn.ndtv.com
+mobile.ndtv.com
+m.ndtv.com
+news.ndtv.com
+search.ndtv.com</pre>
+			
+				<h3>nmap — OK</h3>
+				<pre>Open ports found:
+80 (http)
+443 (https)</pre>
+			
+				<h3>api-discovery — OK</h3>
+				<pre>API Endpoints Discovered:
+/api (301)
+/api/v1 (301)
+/api/v2 (301)
+/rest (301)
+/graphql (301)
+/swagger (301)
+/docs (301)
+/openapi.json (301)
+/swagger.json (301)
+/api-docs (301)
+/developer (301)
+/developers (301)
+/sdk (301)
+/client (301)
+/clients (301)
+/oauth (301)
+/auth (301)
+/login (301)
+/register (301)
+/webhook (301)
+/callback (301)
+/status (301)
+/health (301)
+/ping (301)
+/version (301)
+Documentation: /swagger-ui (301)
+Documentation: /redoc (301)
+Documentation: /api-docs (301)
+Documentation: /documentation (301)
+Documentation: /help (301)</pre>
+			
+				<h3>ssl-analysis — OK</h3>
+				<pre>SSL Certificate Analysis for ndtv.com:
+Subject: ndtv.com
+Issuer: DigiCert TLS RSA SHA256 2020 CA1
+Valid From: Jan  7 00:00:00 2025 GMT
+Valid Until: Jan  7 23:59:59 2026 GMT
+Days Remaining: 104
+Security Issues: None detected</pre>
+			
+				<h3>sniper — OK</h3>
+				<pre>=== SNIPER SCAN RESULTS FOR ndtv.com ===
+Open ports: 80 (http), 443 (https)
+Web server: 403
+Server: N/A
+Content-Type: text/html
+Error messages found
+DNS A records: 23.58.1.33</pre>
+			
+				<h3>theHarvester — OK</h3>
+				<pre>No emails or subdomains found</pre>
+			
+				<h3>mobile-analysis — OK</h3>
+				<pre>Mobile App Analysis:
+Mobile app path: /.well-known/apple-app-site-association (301)
+Mobile app path: /.well-known/assetlinks.json (301)
+Mobile app path: /mobile (301)
+Mobile app path: /app (301)
+Mobile app path: /android (301)
+Mobile app path: /ios (301)
+Mobile app path: /mobile-app (301)</pre>
+			
+				<h3>naabu — OK</h3>
+				<pre>Open ports found:
+80 (http)
+443 (https)</pre>
+			
+				<h3>js-analysis — OK</h3>
+				<pre>JavaScript Analysis:
+JavaScript files found: 0</pre>
+			
+				<h3>builtin-tcp — OK</h3>
+				<pre>Open ports: 80, 443</pre>
+			
+		</div>
+	</body>
+</html>

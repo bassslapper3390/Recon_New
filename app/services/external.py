@@ -178,6 +178,7 @@ async def theharvester_run(domain: str) -> Tuple[bool, str]:
 				response = requests.get(url, timeout=5)
 				if response.status_code == 200:
 					# Look for subdomain patterns
+
 					subdomains = re.findall(rf'[a-zA-Z0-9.-]+\.{domain.replace(".", r"\.")}', response.text)
 					for subdomain in subdomains:
 						if subdomain != domain:

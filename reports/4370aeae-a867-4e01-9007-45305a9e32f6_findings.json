@@ -1,0 +1,1028 @@
+{
+  "request": {
+    "request_id": "4370aeae-a867-4e01-9007-45305a9e32f6",
+    "domain": "upes.ac.in",
+    "ip": null
+  },
+  "findings": {
+    "Information": [
+      {
+        "category": "Information",
+        "type": "Email Address",
+        "value": "archana.sriwastava@upes.ac.in",
+        "source": "theHarvester",
+        "severity": "info"
+      },
+      {
+        "category": "Information",
+        "type": "Email Address",
+        "value": "girija.pareek@upes.ac.in",
+        "source": "theHarvester",
+        "severity": "info"
+      },
+      {
+        "category": "Information",
+        "type": "Email Address",
+        "value": "skatyal@upes.ac.in",
+        "source": "theHarvester",
+        "severity": "info"
+      },
+      {
+        "category": "Information",
+        "type": "Email Address",
+        "value": "vaibhav.gupta@upes.ac.in",
+        "source": "theHarvester",
+        "severity": "info"
+      },
+      {
+        "category": "Information",
+        "type": "Email Address",
+        "value": "siya.saji@upes.ac.in",
+        "source": "theHarvester",
+        "severity": "info"
+      },
+      {
+        "category": "Information",
+        "type": "Email Address",
+        "value": "manishmadaan@ddn.upes.ac.in",
+        "source": "theHarvester",
+        "severity": "info"
+      },
+      {
+        "category": "Information",
+        "type": "Email Address",
+        "value": "shweta.yadav@upes.ac.in",
+        "source": "theHarvester",
+        "severity": "info"
+      },
+      {
+        "category": "Information",
+        "type": "Email Address",
+        "value": "enrollments@upes.ac.in",
+        "source": "theHarvester",
+        "severity": "info"
+      },
+      {
+        "category": "Information",
+        "type": "Email Address",
+        "value": "sonal.sehgal@upes.ac.in",
+        "source": "theHarvester",
+        "severity": "info"
+      },
+      {
+        "category": "Information",
+        "type": "Email Address",
+        "value": "borah.pumpy@upes.ac.in",
+        "source": "theHarvester",
+        "severity": "info"
+      },
+      {
+        "category": "Information",
+        "type": "Email Address",
+        "value": "urishma.tyagi@upes.ac.in",
+        "source": "theHarvester",
+        "severity": "info"
+      },
+      {
+        "category": "Information",
+        "type": "Email Address",
+        "value": "international.admissions@upes.ac.in",
+        "source": "theHarvester",
+        "severity": "info"
+      },
+      {
+        "category": "Information",
+        "type": "Email Address",
+        "value": "shiny.vincent@upes.ac.in",
+        "source": "theHarvester",
+        "severity": "info"
+      }
+    ],
+    "Network": [
+      {
+        "category": "Network",
+        "type": "Open Port",
+        "value": "Port 2",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Network",
+        "type": "Open Port",
+        "value": "Port 1",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Network",
+        "type": "Open Port",
+        "value": "Port 80",
+        "source": "sniper, nmap, masscan",
+        "severity": "info"
+      },
+      {
+        "category": "Network",
+        "type": "Open Port",
+        "value": "Port 443",
+        "source": "sniper, naabu, masscan",
+        "severity": "info"
+      },
+      {
+        "category": "Network",
+        "type": "Open Port",
+        "value": "Port 8443",
+        "source": "sniper, naabu, nmap",
+        "severity": "info"
+      },
+      {
+        "category": "Network",
+        "type": "IP Address",
+        "value": "4.186.33.78",
+        "source": "sniper, geo-intel, dnsx",
+        "severity": "info"
+      },
+      {
+        "category": "Network",
+        "type": "Open Port",
+        "value": "Port 00",
+        "source": "ssl-analysis",
+        "severity": "info"
+      },
+      {
+        "category": "Network",
+        "type": "Open Port",
+        "value": "Port 59",
+        "source": "ssl-analysis",
+        "severity": "info"
+      },
+      {
+        "category": "Network",
+        "type": "DNS A Record",
+        "value": "4.186.33.78",
+        "source": "DNS",
+        "severity": "info"
+      },
+      {
+        "category": "Network",
+        "type": "DNS MX Record",
+        "value": "10 mx2.hc223-81.ap.iphmx.com.",
+        "source": "DNS",
+        "severity": "info"
+      },
+      {
+        "category": "Network",
+        "type": "DNS MX Record",
+        "value": "5 mx1.hc223-81.ap.iphmx.com.",
+        "source": "DNS",
+        "severity": "info"
+      }
+    ],
+    "Endpoints": [
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/api-docs",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/health",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/openapi.json",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/docs",
+        "source": "api-discovery, feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/clients",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/auth",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/swagger",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/status",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/oauth",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/documentation",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/webhook",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/register",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/client",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/redoc",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/swagger.json",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/rest",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/version",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/graphql",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/swagger-ui",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/api",
+        "source": "api-discovery, feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/sdk",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/api/v2",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/callback",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/login",
+        "source": "api-discovery, feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/developers",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/ping",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/api/v1",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/help",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/developer",
+        "source": "api-discovery",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/html;",
+        "source": "sniper, httpx, aquatone",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/A",
+        "source": "sniper, aquatone",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/mobile",
+        "source": "mobile-analysis",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/app",
+        "source": "mobile-analysis",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/.well-known/apple-app-site-association",
+        "source": "mobile-analysis",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/.well-known/assetlinks.json",
+        "source": "mobile-analysis",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/mobile-app",
+        "source": "mobile-analysis",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/android",
+        "source": "mobile-analysis",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/ios",
+        "source": "mobile-analysis",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "URL",
+        "value": "http://upes.ac.in",
+        "source": "aquatone, whatweb",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "//upes.ac.in",
+        "source": "aquatone, whatweb",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/Kolkata",
+        "source": "geo-intel",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/Hosting:",
+        "source": "tech-profiling",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/Framework:",
+        "source": "tech-profiling",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "URL",
+        "value": "https://www.facebook.com/upes.ac.in",
+        "source": "social-intel",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "URL",
+        "value": "https://www.reddit.com/r/upes.ac.in",
+        "source": "social-intel",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "URL",
+        "value": "https://twitter.com/upes.ac.in",
+        "source": "social-intel",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "URL",
+        "value": "https://www.instagram.com/upes.ac.in",
+        "source": "social-intel",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "//www.instagram.com/upes.ac.in",
+        "source": "social-intel",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "//twitter.com/upes.ac.in",
+        "source": "social-intel",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "//www.reddit.com/r/upes.ac.in",
+        "source": "social-intel",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "//www.facebook.com/upes.ac.in",
+        "source": "social-intel",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/admin.html",
+        "source": "nikto",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/phpmyadmin",
+        "source": "nikto, feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/wp-admin",
+        "source": "nikto, feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/admin.php",
+        "source": "nikto",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/administrator",
+        "source": "nikto",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/admin",
+        "source": "nikto, feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/lib",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/dev",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/downloads",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/cache",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/bin",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/config",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/src",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/beta",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/archive",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/js",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/css",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/old",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/uploads",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/images",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/test",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/var",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/files",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/includes",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/stage",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/temp",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/logs",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/etc",
+        "source": "feroxbuster",
+        "severity": "info"
+      },
+      {
+        "category": "Endpoints",
+        "type": "Directory",
+        "value": "/backup",
+        "source": "feroxbuster",
+        "severity": "info"
+      }
+    ],
+    "Vulnerabilities": [
+      {
+        "category": "Vulnerabilities",
+        "type": "Vulnerability",
+        "value": "vulnerabilities found: potential open redirect vulnerability robots.txt accessible",
+        "source": "nuclei",
+        "severity": "medium"
+      },
+      {
+        "category": "Vulnerabilities",
+        "type": "Vulnerability",
+        "value": "web vulnerabilities found: backup file accessible: index.bak admin panel accessible: /admin admin panel accessible: /administrator admin p",
+        "source": "nikto",
+        "severity": "medium"
+      }
+    ]
+  },
+  "passive": {
+    "dns": {
+      "MX": [
+        "10 mx2.hc223-81.ap.iphmx.com.",
+        "5 mx1.hc223-81.ap.iphmx.com."
+      ],
+      "AAAA_error": "The DNS response does not contain an answer to the question: upes.ac.in. IN AAAA",
+      "A": [
+        "4.186.33.78"
+      ],
+      "NS": [
+        "ns-1394.awsdns-46.org.",
+        "ns-1590.awsdns-06.co.uk.",
+        "ns-67.awsdns-08.com.",
+        "ns-684.awsdns-21.net."
+      ],
+      "TXT_error": "The resolution lifetime expired after 5.004 seconds: Server Do53:172.20.10.1@53 answered The DNS operation timed out.; Server Do53:192.168.1.1@53 answered ; Server Do53:192.168.1.1@53 answered The DNS operation timed out.; Server Do53:172.20.10.1@53 answered The DNS operation timed out."
+    },
+    "whois": {
+      "error": "[Errno 11001] getaddrinfo failed"
+    },
+    "ssl": {
+      "subject": [
+        [
+          [
+            "commonName",
+            "*.upes.ac.in"
+          ]
+        ]
+      ],
+      "issuer": [
+        [
+          [
+            "countryName",
+            "GB"
+          ]
+        ],
+        [
+          [
+            "organizationName",
+            "Sectigo Limited"
+          ]
+        ],
+        [
+          [
+            "commonName",
+            "Sectigo Public Server Authentication CA DV R36"
+          ]
+        ]
+      ],
+      "notAfter": "Aug  9 23:59:59 2026 GMT"
+    },
+    "http": {
+      "http://upes.ac.in": {
+        "status": 200,
+        "headers": {
+          "date": "Sat, 08 Nov 2025 06:33:07 GMT",
+          "content-type": "text/html; charset=utf-8",
+          "transfer-encoding": "chunked",
+          "connection": "keep-alive",
+          "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
+          "etag": "W/\"23967-LVA0Aa95VHbEvSYzYaweNlrWMDc\"",
+          "vary": "Accept-Encoding",
+          "content-encoding": "gzip",
+          "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+          "x-frame-options": "SAMEORIGIN",
+          "referrer-policy": "strict-origin-when-cross-origin, same-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=()",
+          "content-security-policy": "upgrade-insecure-requests;",
+          "x-content-type-options": "nosniff, nosniff",
+          "x-permitted-cross-domain-policies": "master-only",
+          "x-xss-protection": "1; mode=block"
+        }
+      },
+      "https://upes.ac.in": {
+        "status": 200,
+        "headers": {
+          "date": "Sat, 08 Nov 2025 06:33:08 GMT",
+          "content-type": "text/html; charset=utf-8",
+          "transfer-encoding": "chunked",
+          "connection": "keep-alive",
+          "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
+          "etag": "W/\"23967-LVA0Aa95VHbEvSYzYaweNlrWMDc\"",
+          "vary": "Accept-Encoding",
+          "content-encoding": "gzip",
+          "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+          "x-frame-options": "SAMEORIGIN",
+          "referrer-policy": "strict-origin-when-cross-origin, same-origin",
+          "permissions-policy": "geolocation=(), microphone=(), camera=()",
+          "content-security-policy": "upgrade-insecure-requests;",
+          "x-content-type-options": "nosniff, nosniff",
+          "x-permitted-cross-domain-policies": "master-only",
+          "x-xss-protection": "1; mode=block"
+        }
+      }
+    },
+    "robots": null,
+    "ct_logs": []
+  },
+  "tools": [
+    {
+      "name": "theHarvester",
+      "success": true,
+      "output": "Harvested information: Email found: girija.pareek@upes.ac.in Email found: vaibhav.gupta@upes.ac.in Email found: enrollments@upes.ac.in Email found: skatyal@upes.ac.in Email found: urishma.tyagi@upes.ac.in Email found: manishmadaan@ddn.upes.ac.in Subdomain found: admission.upes.ac.in Email found: shiny.vincent@upes.ac.in Email found: sonal.sehgal@upes.ac.in Email found: siya.saji@upes.ac.in Email found: archana.sriwastava@upes.ac.in Email found: international.admissions@upes.ac.in Subdomain found: www.upes.ac.in Email found: shweta.yadav@upes.ac.in Subdomain found: refund.upes.ac.in Email found: borah.pumpy@upes.ac.in",
+      "error": null
+    },
+    {
+      "name": "gobuster-dns",
+      "success": true,
+      "output": "DNS brute force results: www.upes.ac.in mail.upes.ac.in ftp.upes.ac.in blog.upes.ac.in dev.upes.ac.in test.upes.ac.in beta.upes.ac.in img.upes.ac.in app.upes.ac.in m.upes.ac.in dashboard.upes.ac.in stats.upes.ac.in old.upes.ac.in",
+      "error": null
+    },
+    {
+      "name": "api-discovery",
+      "success": true,
+      "output": "API Endpoints Discovered: /api (301) /api/v1 (301) /api/v2 (301) /rest (301) /graphql (301) /swagger (301) /docs (301) /openapi.json (301) /swagger.json (301) /api-docs (301) /developer (301) /developers (301) /sdk (301) /client (301) /clients (301) /oauth (301) /auth (301) /login (301) /register (301) /webhook (301) /callback (301) /status (301) /health (301) /ping (301) /version (301) Documentation: /swagger-ui (301) Documentation: /redoc (301) Documentation: /api-docs (301) Documentation: /documentation (301) Documentation: /help (301)",
+      "error": null
+    },
+    {
+      "name": "subfinder",
+      "success": true,
+      "output": "Found subdomains: www.upes.ac.in mail.upes.ac.in ftp.upes.ac.in blog.upes.ac.in dev.upes.ac.in test.upes.ac.in beta.upes.ac.in img.upes.ac.in app.upes.ac.in",
+      "error": null
+    },
+    {
+      "name": "nuclei",
+      "success": true,
+      "output": "Vulnerabilities found: Potential open redirect vulnerability Robots.txt accessible",
+      "error": null
+    },
+    {
+      "name": "js-analysis",
+      "success": true,
+      "output": "JavaScript Analysis: JavaScript files found: 12 Inline JavaScript blocks: 31 External JavaScript libraries: 2",
+      "error": null
+    },
+    {
+      "name": "ffuf-vhost",
+      "success": true,
+      "output": "Virtual hosts found: www.upes.ac.in (301)",
+      "error": null
+    },
+    {
+      "name": "sniper",
+      "success": true,
+      "output": "=== SNIPER SCAN RESULTS FOR upes.ac.in === Open ports: 80 (http), 443 (https), 8443 (unknown) Web server: 200 Server: N/A Content-Type: text/html; charset=utf-8 Error messages found DNS A records: 4.186.33.78",
+      "error": null
+    },
+    {
+      "name": "mobile-analysis",
+      "success": true,
+      "output": "Mobile App Analysis: Mobile app path: /.well-known/apple-app-site-association (301) Mobile app path: /.well-known/assetlinks.json (301) Mobile app path: /mobile (301) Mobile app path: /app (301) Mobile app path: /android (301) Mobile app path: /ios (301) Mobile app path: /mobile-app (301) Mobile indicator: viewport",
+      "error": null
+    },
+    {
+      "name": "httpx",
+      "success": true,
+      "output": "HTTP Probe Results: Status: 200 Content-Type: text/html; charset=utf-8 Content-Length: 145767 Server: Title: UPES: Ranked #1 in Academic Reputation",
+      "error": null
+    },
+    {
+      "name": "aquatone",
+      "success": true,
+      "output": "URL: http://upes.ac.in Status: 200 Content-Type: text/html; charset=utf-8 Content-Length: 145767 Server: N/A Title: UPES: Ranked #1 in Academic Reputation Links found: 185 Images found: 54 Forms found: 4 JavaScript detected iFrames detected",
+      "error": null
+    },
+    {
+      "name": "geo-intel",
+      "success": true,
+      "output": "Geolocation Intelligence: IP Address: 4.186.33.78 Country: India Region: Maharashtra City: Pune ISP: Microsoft Corporation Organization: Microsoft Azure Cloud (centralindia) Timezone: Asia/Kolkata",
+      "error": null
+    },
+    {
+      "name": "whatweb",
+      "success": true,
+      "output": "Target: http://upes.ac.in Status: 200 Technologies: Bootstrap, jQuery, Drupal, Google Analytics, Facebook Pixel",
+      "error": null
+    },
+    {
+      "name": "ssl-analysis",
+      "success": true,
+      "output": "SSL Certificate Analysis for upes.ac.in: Subject: *.upes.ac.in Issuer: Sectigo Public Server Authentication CA DV R36 Valid From: Jul 9 00:00:00 2025 GMT Valid Until: Aug 9 23:59:59 2026 GMT Days Remaining: 274 Security Issues: None detected",
+      "error": null
+    },
+    {
+      "name": "tech-profiling",
+      "success": true,
+      "output": "Technology Stack Profile: Language/Framework: PHP Language/Framework: Node.js Language/Framework: Java Language/Framework: Go Frontend: Bootstrap Frontend: jQuery Frontend: Angular Frontend: Vue.js Database: Oracle Cloud/Hosting: AWS Cloud/Hosting: Azure Cloud/Hosting: Google Cloud Cloud/Hosting: DigitalOcean Analytics: Google Analytics Analytics: Google Tag Manager Analytics: Facebook Pixel",
+      "error": null
+    },
+    {
+      "name": "wafw00f",
+      "success": true,
+      "output": "WAF detected: Joomla",
+      "error": null
+    },
+    {
+      "name": "email-security",
+      "success": true,
+      "output": "Email Security Analysis: No SPF record found No DKIM record found No DMARC record found MX Records: mx2.hc223-81.ap.iphmx.com. (Priority: 10), mx1.hc223-81.ap.iphmx.com. (Priority: 5)",
+      "error": null
+    },
+    {
+      "name": "amass",
+      "success": true,
+      "output": "Found subdomains: www.upes.ac.in mail.upes.ac.in ftp.upes.ac.in blog.upes.ac.in dev.upes.ac.in test.upes.ac.in beta.upes.ac.in app.upes.ac.in m.upes.ac.in dashboard.upes.ac.in stats.upes.ac.in old.upes.ac.in",
+      "error": null
+    },
+    {
+      "name": "naabu",
+      "success": true,
+      "output": "Open ports found: 443 (https) 8443 (unknown)",
+      "error": null
+    },
+    {
+      "name": "social-intel",
+      "success": true,
+      "output": "Social Media Profiles Found: Facebook: https://www.facebook.com/upes.ac.in Twitter: https://twitter.com/upes.ac.in Instagram: https://www.instagram.com/upes.ac.in Reddit: https://www.reddit.com/r/upes.ac.in",
+      "error": null
+    },
+    {
+      "name": "dnsx",
+      "success": true,
+      "output": "DNS Records found: A: 4.186.33.78 MX: 10 mx2.hc223-81.ap.iphmx.com., 5 mx1.hc223-81.ap.iphmx.com. NS: ns-1394.awsdns-46.org., ns-1590.awsdns-06.co.uk., ns-67.awsdns-08.com., ns-684.awsdns-21.net. SOA: ns-67.awsdns-08.com. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400",
+      "error": null
+    },
+    {
+      "name": "nmap",
+      "success": true,
+      "output": "Open ports found: 80 (http) 8443 (unknown)",
+      "error": null
+    },
+    {
+      "name": "masscan",
+      "success": true,
+      "output": "Open ports found (1-1024): 80 (http) 443 (https)",
+      "error": null
+    },
+    {
+      "name": "nikto",
+      "success": true,
+      "output": "Web vulnerabilities found: Backup file accessible: index.bak Admin panel accessible: /admin Admin panel accessible: /administrator Admin panel accessible: /admin.php Admin panel accessible: /admin.html Admin panel accessible: /wp-admin Admin panel accessible: /phpmyadmin",
+      "error": null
+    },
+    {
+      "name": "cloud-detect",
+      "success": true,
+      "output": "No obvious cloud infrastructure detected",
+      "error": null
+    },
+    {
+      "name": "sublist3r",
+      "success": true,
+      "output": "Found subdomains: www.upes.ac.in mail.upes.ac.in ftp.upes.ac.in blog.upes.ac.in dev.upes.ac.in test.upes.ac.in beta.upes.ac.in img.upes.ac.in app.upes.ac.in m.upes.ac.in dashboard.upes.ac.in stats.upes.ac.in old.upes.ac.in vpn.upes.ac.in",
+      "error": null
+    },
+    {
+      "name": "feroxbuster",
+      "success": true,
+      "output": "Found directories: / (301) /admin (301) /login (301) /wp-admin (301) /phpmyadmin (301) /config (301) /backup (301) /api (301) /docs (301) /test (301) /dev (301) /stage (301) /beta (301) /old (301) /archive (301) /files (301) /images (301) /css (301) /js (301) /uploads (301) /downloads (301) /temp (301) /cache (301) /logs (301) /includes (301) /lib (301) /src (301) /bin (301) /etc (301) /var (301)",
+      "error": null
+    },
+    {
+      "name": "builtin-tcp",
+      "success": true,
+      "output": "Open ports: 80, 443, 8443",
+      "error": null
+    }
+  ]
+}

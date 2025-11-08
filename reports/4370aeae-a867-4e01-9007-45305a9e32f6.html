@@ -1,0 +1,2137 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Recon Report</title>
+		<link rel="stylesheet" href="/static/style.css" />
+		<style>
+			body {
+				background: #f5f5f5;
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				line-height: 1.6;
+				color: #333;
+				padding: 20px;
+			}
+			.report-container {
+				max-width: 1400px;
+				margin: 0 auto;
+				background: white;
+				padding: 40px;
+				border-radius: 10px;
+				box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+			}
+			.report-header {
+				border-bottom: 3px solid #667eea;
+				padding-bottom: 20px;
+				margin-bottom: 30px;
+			}
+			.report-header h1 {
+				color: #2c3e50;
+				margin-bottom: 10px;
+			}
+			.report-header .target-info {
+				font-size: 1.1em;
+				color: #666;
+			}
+			.download-section {
+				text-align: right;
+				margin-bottom: 30px;
+			}
+			.download-btn {
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				color: white;
+				border: none;
+				padding: 12px 30px;
+				font-size: 1em;
+				font-weight: 600;
+				border-radius: 5px;
+				cursor: pointer;
+				text-decoration: none;
+				display: inline-block;
+				transition: all 0.3s ease;
+			}
+			.download-btn:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+			}
+			.findings-section {
+				margin-bottom: 40px;
+			}
+			.findings-section h2 {
+				color: #2c3e50;
+				margin-bottom: 20px;
+				padding-bottom: 10px;
+				border-bottom: 2px solid #e9ecef;
+			}
+			.findings-category {
+				margin-bottom: 30px;
+			}
+			.findings-category h3 {
+				color: #495057;
+				margin-bottom: 15px;
+				font-size: 1.3em;
+			}
+			.findings-table {
+				width: 100%;
+				border-collapse: collapse;
+				margin-bottom: 20px;
+				background: white;
+				box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+			}
+			.findings-table th {
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				color: white;
+				padding: 12px 15px;
+				text-align: left;
+				font-weight: 600;
+			}
+			.findings-table td {
+				padding: 12px 15px;
+				border-bottom: 1px solid #e9ecef;
+			}
+			.findings-table tr:hover {
+				background: #f8f9fa;
+			}
+			.findings-table tr:last-child td {
+				border-bottom: none;
+			}
+			.severity-badge {
+				display: inline-block;
+				padding: 4px 12px;
+				border-radius: 12px;
+				font-size: 0.85em;
+				font-weight: 600;
+				text-transform: uppercase;
+			}
+			.severity-critical {
+				background: #dc3545;
+				color: white;
+			}
+			.severity-high {
+				background: #fd7e14;
+				color: white;
+			}
+			.severity-medium {
+				background: #ffc107;
+				color: #333;
+			}
+			.severity-low {
+				background: #17a2b8;
+				color: white;
+			}
+			.severity-info {
+				background: #6c757d;
+				color: white;
+			}
+			.source-badge {
+				display: inline-block;
+				padding: 4px 10px;
+				background: #e9ecef;
+				border-radius: 4px;
+				font-size: 0.85em;
+				color: #495057;
+			}
+			.value-cell {
+				max-width: 500px;
+				word-wrap: break-word;
+				font-family: 'Courier New', monospace;
+				font-size: 0.9em;
+			}
+			.passive-section, .tools-section {
+				margin-bottom: 40px;
+			}
+			.passive-section h2, .tools-section h2 {
+				color: #2c3e50;
+				margin-bottom: 20px;
+				padding-bottom: 10px;
+				border-bottom: 2px solid #e9ecef;
+			}
+			.passive-data {
+				background: #f8f9fa;
+				padding: 15px;
+				border-radius: 5px;
+				border-left: 4px solid #667eea;
+				margin-bottom: 15px;
+			}
+			.passive-data pre {
+				margin: 0;
+				font-size: 0.9em;
+				white-space: pre-wrap;
+				word-wrap: break-word;
+			}
+			.tool-item {
+				background: #f8f9fa;
+				padding: 15px;
+				border-radius: 5px;
+				margin-bottom: 15px;
+				border-left: 4px solid #28a745;
+			}
+			.tool-item.failed {
+				border-left-color: #dc3545;
+			}
+			.tool-item h3 {
+				margin-top: 0;
+				margin-bottom: 10px;
+				color: #2c3e50;
+			}
+			.tool-item pre {
+				margin: 0;
+				font-size: 0.9em;
+				white-space: pre-wrap;
+				word-wrap: break-word;
+				max-height: 300px;
+				overflow-y: auto;
+			}
+			.status-badge {
+				display: inline-block;
+				padding: 4px 10px;
+				border-radius: 4px;
+				font-size: 0.85em;
+				font-weight: 600;
+				margin-left: 10px;
+			}
+			.status-ok {
+				background: #d4edda;
+				color: #155724;
+			}
+			.status-failed {
+				background: #f8d7da;
+				color: #721c24;
+			}
+			.no-findings {
+				text-align: center;
+				padding: 40px;
+				color: #6c757d;
+				font-style: italic;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="report-container">
+			<div class="report-header">
+				<h1>Reconnaissance Report</h1>
+				<div class="target-info">
+					<strong>Target:</strong> upes.ac.in
+				</div>
+			</div>
+
+			<div class="download-section">
+				<a href="/report/4370aeae-a867-4e01-9007-45305a9e32f6/pdf" class="download-btn" download>Download PDF Report</a>
+			</div>
+
+			
+			<div class="findings-section">
+				<h2>Key Findings</h2>
+				
+				<div class="findings-category">
+					<h3>Information (13)</h3>
+					<table class="findings-table">
+						<thead>
+							<tr>
+								<th style="width: 15%;">Type</th>
+								<th style="width: 10%;">Severity</th>
+								<th style="width: 50%;">Value</th>
+								<th style="width: 25%;">Source</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+							<tr>
+								<td>Email Address</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">archana.sriwastava@upes.ac.in</td>
+								<td>
+									<span class="source-badge">theHarvester</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Email Address</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">girija.pareek@upes.ac.in</td>
+								<td>
+									<span class="source-badge">theHarvester</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Email Address</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">skatyal@upes.ac.in</td>
+								<td>
+									<span class="source-badge">theHarvester</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Email Address</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">vaibhav.gupta@upes.ac.in</td>
+								<td>
+									<span class="source-badge">theHarvester</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Email Address</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">siya.saji@upes.ac.in</td>
+								<td>
+									<span class="source-badge">theHarvester</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Email Address</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">manishmadaan@ddn.upes.ac.in</td>
+								<td>
+									<span class="source-badge">theHarvester</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Email Address</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">shweta.yadav@upes.ac.in</td>
+								<td>
+									<span class="source-badge">theHarvester</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Email Address</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">enrollments@upes.ac.in</td>
+								<td>
+									<span class="source-badge">theHarvester</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Email Address</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">sonal.sehgal@upes.ac.in</td>
+								<td>
+									<span class="source-badge">theHarvester</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Email Address</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">borah.pumpy@upes.ac.in</td>
+								<td>
+									<span class="source-badge">theHarvester</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Email Address</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">urishma.tyagi@upes.ac.in</td>
+								<td>
+									<span class="source-badge">theHarvester</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Email Address</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">international.admissions@upes.ac.in</td>
+								<td>
+									<span class="source-badge">theHarvester</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Email Address</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">shiny.vincent@upes.ac.in</td>
+								<td>
+									<span class="source-badge">theHarvester</span>
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+				
+				<div class="findings-category">
+					<h3>Network (11)</h3>
+					<table class="findings-table">
+						<thead>
+							<tr>
+								<th style="width: 15%;">Type</th>
+								<th style="width: 10%;">Severity</th>
+								<th style="width: 50%;">Value</th>
+								<th style="width: 25%;">Source</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+							<tr>
+								<td>Open Port</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">Port 2</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Open Port</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">Port 1</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Open Port</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">Port 80</td>
+								<td>
+									<span class="source-badge">sniper, nmap, masscan</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Open Port</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">Port 443</td>
+								<td>
+									<span class="source-badge">sniper, naabu, masscan</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Open Port</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">Port 8443</td>
+								<td>
+									<span class="source-badge">sniper, naabu, nmap</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>IP Address</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">4.186.33.78</td>
+								<td>
+									<span class="source-badge">sniper, geo-intel, dnsx</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Open Port</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">Port 00</td>
+								<td>
+									<span class="source-badge">ssl-analysis</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Open Port</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">Port 59</td>
+								<td>
+									<span class="source-badge">ssl-analysis</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>DNS A Record</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">4.186.33.78</td>
+								<td>
+									<span class="source-badge">DNS</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>DNS MX Record</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">10 mx2.hc223-81.ap.iphmx.com.</td>
+								<td>
+									<span class="source-badge">DNS</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>DNS MX Record</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">5 mx1.hc223-81.ap.iphmx.com.</td>
+								<td>
+									<span class="source-badge">DNS</span>
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+				
+				<div class="findings-category">
+					<h3>Endpoints (80)</h3>
+					<table class="findings-table">
+						<thead>
+							<tr>
+								<th style="width: 15%;">Type</th>
+								<th style="width: 10%;">Severity</th>
+								<th style="width: 50%;">Value</th>
+								<th style="width: 25%;">Source</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/api-docs</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/health</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/openapi.json</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/docs</td>
+								<td>
+									<span class="source-badge">api-discovery, feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/clients</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/auth</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/swagger</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/status</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/oauth</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/documentation</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/webhook</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/register</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/client</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/redoc</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/swagger.json</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/rest</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/version</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/graphql</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/swagger-ui</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/api</td>
+								<td>
+									<span class="source-badge">api-discovery, feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/sdk</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/api/v2</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/callback</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/login</td>
+								<td>
+									<span class="source-badge">api-discovery, feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/developers</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/ping</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/api/v1</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/help</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/developer</td>
+								<td>
+									<span class="source-badge">api-discovery</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/html;</td>
+								<td>
+									<span class="source-badge">sniper, httpx, aquatone</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/A</td>
+								<td>
+									<span class="source-badge">sniper, aquatone</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/mobile</td>
+								<td>
+									<span class="source-badge">mobile-analysis</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/app</td>
+								<td>
+									<span class="source-badge">mobile-analysis</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/.well-known/apple-app-site-association</td>
+								<td>
+									<span class="source-badge">mobile-analysis</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/.well-known/assetlinks.json</td>
+								<td>
+									<span class="source-badge">mobile-analysis</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/mobile-app</td>
+								<td>
+									<span class="source-badge">mobile-analysis</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/android</td>
+								<td>
+									<span class="source-badge">mobile-analysis</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/ios</td>
+								<td>
+									<span class="source-badge">mobile-analysis</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>URL</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">http://upes.ac.in</td>
+								<td>
+									<span class="source-badge">aquatone, whatweb</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">//upes.ac.in</td>
+								<td>
+									<span class="source-badge">aquatone, whatweb</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/Kolkata</td>
+								<td>
+									<span class="source-badge">geo-intel</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/Hosting:</td>
+								<td>
+									<span class="source-badge">tech-profiling</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/Framework:</td>
+								<td>
+									<span class="source-badge">tech-profiling</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>URL</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">https://www.facebook.com/upes.ac.in</td>
+								<td>
+									<span class="source-badge">social-intel</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>URL</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">https://www.reddit.com/r/upes.ac.in</td>
+								<td>
+									<span class="source-badge">social-intel</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>URL</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">https://twitter.com/upes.ac.in</td>
+								<td>
+									<span class="source-badge">social-intel</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>URL</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">https://www.instagram.com/upes.ac.in</td>
+								<td>
+									<span class="source-badge">social-intel</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">//www.instagram.com/upes.ac.in</td>
+								<td>
+									<span class="source-badge">social-intel</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">//twitter.com/upes.ac.in</td>
+								<td>
+									<span class="source-badge">social-intel</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">//www.reddit.com/r/upes.ac.in</td>
+								<td>
+									<span class="source-badge">social-intel</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">//www.facebook.com/upes.ac.in</td>
+								<td>
+									<span class="source-badge">social-intel</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/admin.html</td>
+								<td>
+									<span class="source-badge">nikto</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/phpmyadmin</td>
+								<td>
+									<span class="source-badge">nikto, feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/wp-admin</td>
+								<td>
+									<span class="source-badge">nikto, feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/admin.php</td>
+								<td>
+									<span class="source-badge">nikto</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/administrator</td>
+								<td>
+									<span class="source-badge">nikto</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/admin</td>
+								<td>
+									<span class="source-badge">nikto, feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/lib</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/dev</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/downloads</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/cache</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/bin</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/config</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/src</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/beta</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/archive</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/js</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/css</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/old</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/uploads</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/images</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/test</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/var</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/files</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/includes</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/stage</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/temp</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/logs</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/etc</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Directory</td>
+								<td>
+									<span class="severity-badge severity-info">
+										info
+									</span>
+								</td>
+								<td class="value-cell">/backup</td>
+								<td>
+									<span class="source-badge">feroxbuster</span>
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+				
+				<div class="findings-category">
+					<h3>Vulnerabilities (2)</h3>
+					<table class="findings-table">
+						<thead>
+							<tr>
+								<th style="width: 15%;">Type</th>
+								<th style="width: 10%;">Severity</th>
+								<th style="width: 50%;">Value</th>
+								<th style="width: 25%;">Source</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+							<tr>
+								<td>Vulnerability</td>
+								<td>
+									<span class="severity-badge severity-medium">
+										medium
+									</span>
+								</td>
+								<td class="value-cell">vulnerabilities found: potential open redirect vulnerability robots.txt accessible</td>
+								<td>
+									<span class="source-badge">nuclei</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>Vulnerability</td>
+								<td>
+									<span class="severity-badge severity-medium">
+										medium
+									</span>
+								</td>
+								<td class="value-cell">web vulnerabilities found: backup file accessible: index.bak admin panel accessible: /admin admin panel accessible: /administrator admin p</td>
+								<td>
+									<span class="source-badge">nikto</span>
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+				
+			</div>
+			
+
+			<div class="passive-section">
+				<h2>Passive Reconnaissance</h2>
+				
+				<div class="passive-data">
+					<strong>DNS Records:</strong>
+					<pre>{
+  "A": [
+    "4.186.33.78"
+  ],
+  "AAAA_error": "The DNS response does not contain an answer to the question: upes.ac.in. IN AAAA",
+  "MX": [
+    "10 mx2.hc223-81.ap.iphmx.com.",
+    "5 mx1.hc223-81.ap.iphmx.com."
+  ],
+  "NS": [
+    "ns-1394.awsdns-46.org.",
+    "ns-1590.awsdns-06.co.uk.",
+    "ns-67.awsdns-08.com.",
+    "ns-684.awsdns-21.net."
+  ],
+  "TXT_error": "The resolution lifetime expired after 5.004 seconds: Server Do53:172.20.10.1@53 answered The DNS operation timed out.; Server Do53:192.168.1.1@53 answered ; Server Do53:192.168.1.1@53 answered The DNS operation timed out.; Server Do53:172.20.10.1@53 answered The DNS operation timed out."
+}</pre>
+				</div>
+				
+				
+				<div class="passive-data">
+					<strong>WHOIS Information:</strong>
+					<pre>{&#39;error&#39;: &#39;[Errno 11001] getaddrinfo failed&#39;}</pre>
+				</div>
+				
+				
+				<div class="passive-data">
+					<strong>SSL Information:</strong>
+					<pre>{
+  "issuer": [
+    [
+      [
+        "countryName",
+        "GB"
+      ]
+    ],
+    [
+      [
+        "organizationName",
+        "Sectigo Limited"
+      ]
+    ],
+    [
+      [
+        "commonName",
+        "Sectigo Public Server Authentication CA DV R36"
+      ]
+    ]
+  ],
+  "notAfter": "Aug  9 23:59:59 2026 GMT",
+  "subject": [
+    [
+      [
+        "commonName",
+        "*.upes.ac.in"
+      ]
+    ]
+  ]
+}</pre>
+				</div>
+				
+				
+				<div class="passive-data">
+					<strong>HTTP Information:</strong>
+					<pre>{
+  "http://upes.ac.in": {
+    "headers": {
+      "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
+      "connection": "keep-alive",
+      "content-encoding": "gzip",
+      "content-security-policy": "upgrade-insecure-requests;",
+      "content-type": "text/html; charset=utf-8",
+      "date": "Sat, 08 Nov 2025 06:33:07 GMT",
+      "etag": "W/\"23967-LVA0Aa95VHbEvSYzYaweNlrWMDc\"",
+      "permissions-policy": "geolocation=(), microphone=(), camera=()",
+      "referrer-policy": "strict-origin-when-cross-origin, same-origin",
+      "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+      "transfer-encoding": "chunked",
+      "vary": "Accept-Encoding",
+      "x-content-type-options": "nosniff, nosniff",
+      "x-frame-options": "SAMEORIGIN",
+      "x-permitted-cross-domain-policies": "master-only",
+      "x-xss-protection": "1; mode=block"
+    },
+    "status": 200
+  },
+  "https://upes.ac.in": {
+    "headers": {
+      "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
+      "connection": "keep-alive",
+      "content-encoding": "gzip",
+      "content-security-policy": "upgrade-insecure-requests;",
+      "content-type": "text/html; charset=utf-8",
+      "date": "Sat, 08 Nov 2025 06:33:08 GMT",
+      "etag": "W/\"23967-LVA0Aa95VHbEvSYzYaweNlrWMDc\"",
+      "permissions-policy": "geolocation=(), microphone=(), camera=()",
+      "referrer-policy": "strict-origin-when-cross-origin, same-origin",
+      "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+      "transfer-encoding": "chunked",
+      "vary": "Accept-Encoding",
+      "x-content-type-options": "nosniff, nosniff",
+      "x-frame-options": "SAMEORIGIN",
+      "x-permitted-cross-domain-policies": "master-only",
+      "x-xss-protection": "1; mode=block"
+    },
+    "status": 200
+  }
+}</pre>
+				</div>
+				
+				
+				
+			</div>
+
+			<div class="tools-section">
+				<h2>Tool Outputs</h2>
+				
+				<div class="tool-item ">
+					<h3>
+						theHarvester
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Harvested information: Email found: girija.pareek@upes.ac.in Email found: vaibhav.gupta@upes.ac.in Email found: enrollments@upes.ac.in Email found: skatyal@upes.ac.in Email found: urishma.tyagi@upes.ac.in Email found: manishmadaan@ddn.upes.ac.in Subdomain found: admission.upes.ac.in Email found: shiny.vincent@upes.ac.in Email found: sonal.sehgal@upes.ac.in Email found: siya.saji@upes.ac.in Email found: archana.sriwastava@upes.ac.in Email found: international.admissions@upes.ac.in Subdomain found: www.upes.ac.in Email found: shweta.yadav@upes.ac.in Subdomain found: refund.upes.ac.in Email found: borah.pumpy@upes.ac.in</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						gobuster-dns
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>DNS brute force results: www.upes.ac.in mail.upes.ac.in ftp.upes.ac.in blog.upes.ac.in dev.upes.ac.in test.upes.ac.in beta.upes.ac.in img.upes.ac.in app.upes.ac.in m.upes.ac.in dashboard.upes.ac.in stats.upes.ac.in old.upes.ac.in</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						api-discovery
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>API Endpoints Discovered: /api (301) /api/v1 (301) /api/v2 (301) /rest (301) /graphql (301) /swagger (301) /docs (301) /openapi.json (301) /swagger.json (301) /api-docs (301) /developer (301) /developers (301) /sdk (301) /client (301) /clients (301) /oauth (301) /auth (301) /login (301) /register (301) /webhook (301) /callback (301) /status (301) /health (301) /ping (301) /version (301) Documentation: /swagger-ui (301) Documentation: /redoc (301) Documentation: /api-docs (301) Documentation: /documentation (301) Documentation: /help (301)</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						subfinder
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Found subdomains: www.upes.ac.in mail.upes.ac.in ftp.upes.ac.in blog.upes.ac.in dev.upes.ac.in test.upes.ac.in beta.upes.ac.in img.upes.ac.in app.upes.ac.in</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						nuclei
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Vulnerabilities found: Potential open redirect vulnerability Robots.txt accessible</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						js-analysis
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>JavaScript Analysis: JavaScript files found: 12 Inline JavaScript blocks: 31 External JavaScript libraries: 2</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						ffuf-vhost
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Virtual hosts found: www.upes.ac.in (301)</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						sniper
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>=== SNIPER SCAN RESULTS FOR upes.ac.in === Open ports: 80 (http), 443 (https), 8443 (unknown) Web server: 200 Server: N/A Content-Type: text/html; charset=utf-8 Error messages found DNS A records: 4.186.33.78</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						mobile-analysis
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Mobile App Analysis: Mobile app path: /.well-known/apple-app-site-association (301) Mobile app path: /.well-known/assetlinks.json (301) Mobile app path: /mobile (301) Mobile app path: /app (301) Mobile app path: /android (301) Mobile app path: /ios (301) Mobile app path: /mobile-app (301) Mobile indicator: viewport</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						httpx
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>HTTP Probe Results: Status: 200 Content-Type: text/html; charset=utf-8 Content-Length: 145767 Server: Title: UPES: Ranked #1 in Academic Reputation</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						aquatone
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>URL: http://upes.ac.in Status: 200 Content-Type: text/html; charset=utf-8 Content-Length: 145767 Server: N/A Title: UPES: Ranked #1 in Academic Reputation Links found: 185 Images found: 54 Forms found: 4 JavaScript detected iFrames detected</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						geo-intel
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Geolocation Intelligence: IP Address: 4.186.33.78 Country: India Region: Maharashtra City: Pune ISP: Microsoft Corporation Organization: Microsoft Azure Cloud (centralindia) Timezone: Asia/Kolkata</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						whatweb
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Target: http://upes.ac.in Status: 200 Technologies: Bootstrap, jQuery, Drupal, Google Analytics, Facebook Pixel</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						ssl-analysis
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>SSL Certificate Analysis for upes.ac.in: Subject: *.upes.ac.in Issuer: Sectigo Public Server Authentication CA DV R36 Valid From: Jul 9 00:00:00 2025 GMT Valid Until: Aug 9 23:59:59 2026 GMT Days Remaining: 274 Security Issues: None detected</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						tech-profiling
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Technology Stack Profile: Language/Framework: PHP Language/Framework: Node.js Language/Framework: Java Language/Framework: Go Frontend: Bootstrap Frontend: jQuery Frontend: Angular Frontend: Vue.js Database: Oracle Cloud/Hosting: AWS Cloud/Hosting: Azure Cloud/Hosting: Google Cloud Cloud/Hosting: DigitalOcean Analytics: Google Analytics Analytics: Google Tag Manager Analytics: Facebook Pixel</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						wafw00f
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>WAF detected: Joomla</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						email-security
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Email Security Analysis: No SPF record found No DKIM record found No DMARC record found MX Records: mx2.hc223-81.ap.iphmx.com. (Priority: 10), mx1.hc223-81.ap.iphmx.com. (Priority: 5)</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						amass
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Found subdomains: www.upes.ac.in mail.upes.ac.in ftp.upes.ac.in blog.upes.ac.in dev.upes.ac.in test.upes.ac.in beta.upes.ac.in app.upes.ac.in m.upes.ac.in dashboard.upes.ac.in stats.upes.ac.in old.upes.ac.in</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						naabu
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Open ports found: 443 (https) 8443 (unknown)</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						social-intel
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Social Media Profiles Found: Facebook: https://www.facebook.com/upes.ac.in Twitter: https://twitter.com/upes.ac.in Instagram: https://www.instagram.com/upes.ac.in Reddit: https://www.reddit.com/r/upes.ac.in</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						dnsx
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>DNS Records found: A: 4.186.33.78 MX: 10 mx2.hc223-81.ap.iphmx.com., 5 mx1.hc223-81.ap.iphmx.com. NS: ns-1394.awsdns-46.org., ns-1590.awsdns-06.co.uk., ns-67.awsdns-08.com., ns-684.awsdns-21.net. SOA: ns-67.awsdns-08.com. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						nmap
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Open ports found: 80 (http) 8443 (unknown)</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						masscan
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Open ports found (1-1024): 80 (http) 443 (https)</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						nikto
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Web vulnerabilities found: Backup file accessible: index.bak Admin panel accessible: /admin Admin panel accessible: /administrator Admin panel accessible: /admin.php Admin panel accessible: /admin.html Admin panel accessible: /wp-admin Admin panel accessible: /phpmyadmin</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						cloud-detect
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>No obvious cloud infrastructure detected</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						sublist3r
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Found subdomains: www.upes.ac.in mail.upes.ac.in ftp.upes.ac.in blog.upes.ac.in dev.upes.ac.in test.upes.ac.in beta.upes.ac.in img.upes.ac.in app.upes.ac.in m.upes.ac.in dashboard.upes.ac.in stats.upes.ac.in old.upes.ac.in vpn.upes.ac.in</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						feroxbuster
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Found directories: / (301) /admin (301) /login (301) /wp-admin (301) /phpmyadmin (301) /config (301) /backup (301) /api (301) /docs (301) /test (301) /dev (301) /stage (301) /beta (301) /old (301) /archive (301) /files (301) /images (301) /css (301) /js (301) /uploads (301) /downloads (301) /temp (301) /cache (301) /logs (301) /includes (301) /lib (301) /src (301) /bin (301) /etc (301) /var (301)</pre>
+					
+				</div>
+				
+				<div class="tool-item ">
+					<h3>
+						builtin-tcp
+						<span class="status-badge status-ok">
+							OK
+						</span>
+					</h3>
+					
+					<pre>Open ports: 80, 443, 8443</pre>
+					
+				</div>
+				
+			</div>
+		</div>
+	</body>
+</html>

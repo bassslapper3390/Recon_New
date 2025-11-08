@@ -9,6 +9,7 @@ from app.services import external as ext
 from app.services.summary import summarize_text
 from app.services.progress import increment as progress_inc, complete as progress_complete
 from app.services.builtin import tcp_scan
+from app.services.findings import extract_all_findings
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 TEMPLATES_DIR = BASE_DIR / 'templates'
@@ -121,6 +122,9 @@ async def run_full_scan(req: ScanRequest) -> None:
 	passive = await run_passive(req)
 	tools = await run_tools(req)
 
+	# Extract and organize findings
+	findings = extract_all_findings(tools, passive, req.domain)
+
 	# Ensure passive dict doesn't contain non-serializable types
 	def safe(obj):
 		try:
@@ -131,10 +135,44 @@ async def run_full_scan(req: ScanRequest) -> None:
 			return str(obj)
 	passive_dict = {k: safe(v) for k, v in passive.model_dump().items()}
 
+	# Sanitize tool outputs for display (remove HTML, limit length)
+	def sanitize_tool_output(output: str) -> str:
+		if not output:
+			return ""
+		from app.services.findings import sanitize_html
+		cleaned = sanitize_html(output)
+		# Limit to reasonable length for display
+		if len(cleaned) > 5000:
+			cleaned = cleaned[:5000] + "... (truncated)"
+		return cleaned
+	
+	tools_dict = []
+	for t in tools:
+		tool_dict = t.model_dump()
+		if tool_dict.get('output'):
+			tool_dict['output'] = sanitize_tool_output(tool_dict['output'])
+		tools_dict.append(tool_dict)
+
 	template = env.get_template('report.html')
-	html = template.render(request=req.model_dump(), passive=passive_dict, tools=[t.model_dump() for t in tools])
+	html = template.render(
+		request=req.model_dump(), 
+		passive=passive_dict, 
+		tools=tools_dict,
+		findings=findings
+	)
 	report_path = REPORTS_DIR / f"{req.request_id}.html"
 	report_path.write_text(html, encoding='utf-8')
+	
+	# Save findings data for PDF generation
+	import json
+	findings_path = REPORTS_DIR / f"{req.request_id}_findings.json"
+	with findings_path.open('w', encoding='utf-8') as f:
+		json.dump({
+			'request': req.model_dump(),
+			'findings': findings,
+			'passive': passive_dict,
+			'tools': tools_dict
+		}, f, indent=2, default=str)
 
 	joined = []
 	if passive.whois:

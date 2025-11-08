@@ -5,18 +5,323 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Recon Report</title>
 		<link rel="stylesheet" href="/static/style.css" />
+		<style>
+			body {
+				background: #f5f5f5;
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				line-height: 1.6;
+				color: #333;
+				padding: 20px;
+			}
+			.report-container {
+				max-width: 1400px;
+				margin: 0 auto;
+				background: white;
+				padding: 40px;
+				border-radius: 10px;
+				box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+			}
+			.report-header {
+				border-bottom: 3px solid #667eea;
+				padding-bottom: 20px;
+				margin-bottom: 30px;
+			}
+			.report-header h1 {
+				color: #2c3e50;
+				margin-bottom: 10px;
+			}
+			.report-header .target-info {
+				font-size: 1.1em;
+				color: #666;
+			}
+			.download-section {
+				text-align: right;
+				margin-bottom: 30px;
+			}
+			.download-btn {
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				color: white;
+				border: none;
+				padding: 12px 30px;
+				font-size: 1em;
+				font-weight: 600;
+				border-radius: 5px;
+				cursor: pointer;
+				text-decoration: none;
+				display: inline-block;
+				transition: all 0.3s ease;
+			}
+			.download-btn:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+			}
+			.findings-section {
+				margin-bottom: 40px;
+			}
+			.findings-section h2 {
+				color: #2c3e50;
+				margin-bottom: 20px;
+				padding-bottom: 10px;
+				border-bottom: 2px solid #e9ecef;
+			}
+			.findings-category {
+				margin-bottom: 30px;
+			}
+			.findings-category h3 {
+				color: #495057;
+				margin-bottom: 15px;
+				font-size: 1.3em;
+			}
+			.findings-table {
+				width: 100%;
+				border-collapse: collapse;
+				margin-bottom: 20px;
+				background: white;
+				box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+			}
+			.findings-table th {
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				color: white;
+				padding: 12px 15px;
+				text-align: left;
+				font-weight: 600;
+			}
+			.findings-table td {
+				padding: 12px 15px;
+				border-bottom: 1px solid #e9ecef;
+			}
+			.findings-table tr:hover {
+				background: #f8f9fa;
+			}
+			.findings-table tr:last-child td {
+				border-bottom: none;
+			}
+			.severity-badge {
+				display: inline-block;
+				padding: 4px 12px;
+				border-radius: 12px;
+				font-size: 0.85em;
+				font-weight: 600;
+				text-transform: uppercase;
+			}
+			.severity-critical {
+				background: #dc3545;
+				color: white;
+			}
+			.severity-high {
+				background: #fd7e14;
+				color: white;
+			}
+			.severity-medium {
+				background: #ffc107;
+				color: #333;
+			}
+			.severity-low {
+				background: #17a2b8;
+				color: white;
+			}
+			.severity-info {
+				background: #6c757d;
+				color: white;
+			}
+			.source-badge {
+				display: inline-block;
+				padding: 4px 10px;
+				background: #e9ecef;
+				border-radius: 4px;
+				font-size: 0.85em;
+				color: #495057;
+			}
+			.value-cell {
+				max-width: 500px;
+				word-wrap: break-word;
+				font-family: 'Courier New', monospace;
+				font-size: 0.9em;
+			}
+			.passive-section, .tools-section {
+				margin-bottom: 40px;
+			}
+			.passive-section h2, .tools-section h2 {
+				color: #2c3e50;
+				margin-bottom: 20px;
+				padding-bottom: 10px;
+				border-bottom: 2px solid #e9ecef;
+			}
+			.passive-data {
+				background: #f8f9fa;
+				padding: 15px;
+				border-radius: 5px;
+				border-left: 4px solid #667eea;
+				margin-bottom: 15px;
+			}
+			.passive-data pre {
+				margin: 0;
+				font-size: 0.9em;
+				white-space: pre-wrap;
+				word-wrap: break-word;
+			}
+			.tool-item {
+				background: #f8f9fa;
+				padding: 15px;
+				border-radius: 5px;
+				margin-bottom: 15px;
+				border-left: 4px solid #28a745;
+			}
+			.tool-item.failed {
+				border-left-color: #dc3545;
+			}
+			.tool-item h3 {
+				margin-top: 0;
+				margin-bottom: 10px;
+				color: #2c3e50;
+			}
+			.tool-item pre {
+				margin: 0;
+				font-size: 0.9em;
+				white-space: pre-wrap;
+				word-wrap: break-word;
+				max-height: 300px;
+				overflow-y: auto;
+			}
+			.status-badge {
+				display: inline-block;
+				padding: 4px 10px;
+				border-radius: 4px;
+				font-size: 0.85em;
+				font-weight: 600;
+				margin-left: 10px;
+			}
+			.status-ok {
+				background: #d4edda;
+				color: #155724;
+			}
+			.status-failed {
+				background: #f8d7da;
+				color: #721c24;
+			}
+			.no-findings {
+				text-align: center;
+				padding: 40px;
+				color: #6c757d;
+				font-style: italic;
+			}
+		</style>
 	</head>
 	<body>
-		<div class="container">
-			<h1>Recon Report</h1>
-			<p><strong>Target:</strong> {{ request.domain or request.ip }}</p>
-			<h2>Passive Recon</h2>
-			<pre>{{ passive | tojson(indent=2) }}</pre>
-			<h2>Tools</h2>
-			{% for t in tools %}
-				<h3>{{ t.name }} — {{ 'OK' if t.success else 'FAILED' }}</h3>
-				<pre>{{ (t.output or t.error)[:20000] }}</pre>
-			{% endfor %}
+		<div class="report-container">
+			<div class="report-header">
+				<h1>Reconnaissance Report</h1>
+				<div class="target-info">
+					<strong>Target:</strong> {{ request.domain or request.ip or 'N/A' }}
+				</div>
+			</div>
+
+			<div class="download-section">
+				<a href="/report/{{ request.request_id }}/pdf" class="download-btn" target="_blank" onclick="this.style.opacity='0.7'; setTimeout(() => { this.style.opacity='1'; }, 1000);">Download PDF Report</a>
+			</div>
+
+			{% if findings %}
+			<div class="findings-section">
+				<h2>Key Findings</h2>
+				{% for category, category_findings in findings.items() %}
+				<div class="findings-category">
+					<h3>{{ category }} ({{ category_findings|length }})</h3>
+					<table class="findings-table">
+						<thead>
+							<tr>
+								<th style="width: 15%;">Type</th>
+								<th style="width: 10%;">Severity</th>
+								<th style="width: 50%;">Value</th>
+								<th style="width: 25%;">Source</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for finding in category_findings %}
+							<tr>
+								<td>{{ finding.type }}</td>
+								<td>
+									<span class="severity-badge severity-{{ finding.severity }}">
+										{{ finding.severity }}
+									</span>
+								</td>
+								<td class="value-cell">{{ finding.value }}</td>
+								<td>
+									<span class="source-badge">{{ finding.source }}</span>
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				{% endfor %}
+			</div>
+			{% else %}
+			<div class="findings-section">
+				<h2>Key Findings</h2>
+				<div class="no-findings">No findings extracted from this scan.</div>
+			</div>
+			{% endif %}
+
+			<div class="passive-section">
+				<h2>Passive Reconnaissance</h2>
+				{% if passive.dns %}
+				<div class="passive-data">
+					<strong>DNS Records:</strong>
+					<pre>{{ passive.dns | tojson(indent=2) }}</pre>
+				</div>
+				{% endif %}
+				{% if passive.whois %}
+				<div class="passive-data">
+					<strong>WHOIS Information:</strong>
+					<pre>{{ passive.whois }}</pre>
+				</div>
+				{% endif %}
+				{% if passive.ssl %}
+				<div class="passive-data">
+					<strong>SSL Information:</strong>
+					<pre>{{ passive.ssl | tojson(indent=2) }}</pre>
+				</div>
+				{% endif %}
+				{% if passive.http %}
+				<div class="passive-data">
+					<strong>HTTP Information:</strong>
+					<pre>{{ passive.http | tojson(indent=2) }}</pre>
+				</div>
+				{% endif %}
+				{% if passive.robots %}
+				<div class="passive-data">
+					<strong>Robots.txt:</strong>
+					<pre>{{ passive.robots }}</pre>
+				</div>
+				{% endif %}
+				{% if passive.ct_logs %}
+				<div class="passive-data">
+					<strong>Certificate Transparency Logs:</strong>
+					<pre>{{ passive.ct_logs | tojson(indent=2) }}</pre>
+				</div>
+				{% endif %}
+			</div>
+
+			<div class="tools-section">
+				<h2>Tool Outputs</h2>
+				{% for t in tools %}
+				<div class="tool-item {% if not t.success %}failed{% endif %}">
+					<h3>
+						{{ t.name }}
+						<span class="status-badge status-{% if t.success %}ok{% else %}failed{% endif %}">
+							{% if t.success %}OK{% else %}FAILED{% endif %}
+						</span>
+					</h3>
+					{% if t.output %}
+					<pre>{{ t.output }}</pre>
+					{% elif t.error %}
+					<pre style="color: #dc3545;">{{ t.error }}</pre>
+					{% else %}
+					<pre>No output available</pre>
+					{% endif %}
+				</div>
+				{% endfor %}
+			</div>
 		</div>
 	</body>
 </html>
