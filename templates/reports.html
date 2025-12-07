@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Recon Pro</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="hero">
+            <div class="hero-content">
+                <div class="hero-title-row">
+                    <h1><i class="fas fa-file-alt"></i> Reports</h1>
+                    <p class="hero-subtitle">View and download all your scan reports.</p>
+                </div>
+                <div class="hero-actions">
+                    <a href="/" class="btn btn-ghost">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            {% if reports %}
+            <section class="reports-section">
+                <div class="section-header subtle">
+                    <h2><i class="fas fa-list"></i> All Reports ({{ reports|length }})</h2>
+                    <p>Browse, view, and download your completed scans.</p>
+                </div>
+                
+                <div class="reports-grid-full">
+                    {% for report in reports %}
+                    <div class="report-card-full">
+                        <div class="report-card-header">
+                            <div class="report-id-full">
+                                <i class="fas fa-fingerprint"></i>
+                                <span>{{ report.id }}</span>
+                            </div>
+                            <div class="report-date-full">
+                                <i class="fas fa-clock"></i>
+                                <span>{{ report.created_at_str }}</span>
+                            </div>
+                        </div>
+                        <div class="report-card-body">
+                            <div class="report-info">
+                                <div class="report-badge">
+                                    <i class="fas fa-file-code"></i>
+                                    <span>HTML Available</span>
+                                </div>
+                                {% if report.has_pdf %}
+                                <div class="report-badge success">
+                                    <i class="fas fa-file-pdf"></i>
+                                    <span>PDF Available</span>
+                                </div>
+                                {% endif %}
+                                {% if report.has_findings %}
+                                <div class="report-badge info">
+                                    <i class="fas fa-database"></i>
+                                    <span>Findings Data</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="report-card-actions">
+                            <a href="/report/{{ report.id }}" class="btn btn-primary" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                                View Report
+                            </a>
+                            {% if report.has_pdf %}
+                            <a href="/report/{{ report.id }}/pdf" class="btn btn-ghost" download>
+                                <i class="fas fa-download"></i>
+                                Download PDF
+                            </a>
+                            {% else %}
+                            <button class="btn btn-ghost" disabled title="PDF not available for this report">
+                                <i class="fas fa-file-pdf"></i>
+                                No PDF
+                            </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            {% else %}
+            <section class="empty-state">
+                <div class="empty-state-content">
+                    <i class="fas fa-inbox"></i>
+                    <h2>No Reports Yet</h2>
+                    <p>Start your first scan to generate reports here.</p>
+                    <a href="/" class="btn btn-primary">
+                        <i class="fas fa-play"></i>
+                        Start a Scan
+                    </a>
+                </div>
+            </section>
+            {% endif %}
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 Recon Pro — Subtle, focused reconnaissance for security teams.</p>
+        </footer>
+    </div>
+</body>
+</html>
+

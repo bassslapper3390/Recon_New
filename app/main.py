@@ -107,6 +107,39 @@ async def report(request: Request, request_id: str):
 async def tools():
 	return await get_tools_status()
 
+@app.get("/reports", response_class=HTMLResponse)
+async def reports_page(request: Request):
+	"""Dedicated reports page showing all available reports"""
+	reports = []
+	for report_file in REPORTS_DIR.glob("*.html"):
+		request_id = report_file.stem
+		if request_id.endswith("_findings"):
+			continue
+		
+		stat = report_file.stat()
+		created = datetime.fromtimestamp(stat.st_mtime)
+		
+		report_info = {
+			"id": request_id,
+			"filename": report_file.name,
+			"created_at": created,
+			"created_at_str": created.strftime("%Y-%m-%d %H:%M"),
+			"has_pdf": (REPORTS_DIR / f"{request_id}.pdf").exists(),
+			"has_findings": (REPORTS_DIR / f"{request_id}_findings.json").exists(),
+		}
+		reports.append(report_info)
+	
+	# Most recent first
+	reports.sort(key=lambda r: r["created_at"], reverse=True)
+	
+	return templates.TemplateResponse(
+		"reports.html",
+		{
+			"request": request,
+			"reports": reports,
+		},
+	)
+
 @app.get("/report/{request_id}/pdf")
 async def report_pdf(request_id: str):
 	"""Generate and return PDF report"""

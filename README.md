@@ -82,7 +82,9 @@ docker compose exec recon python cli_full_scan.py -t example.com -o reports/scan
 ```powershell
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8088
 ```
-Open `http://localhost:8000` and start a scan.
+Open `http://localhost:8088` or `http://127.0.0.1:8088` and start a scan.
+
+**Note:** If `localhost` doesn't work, use `127.0.0.1:8088` instead. This is usually a Windows hosts file issue.
 
 ## Environment
 - Optional: `OPENAI_API_KEY` for AI summary

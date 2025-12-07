@@ -20,12 +20,10 @@
                         <i class="fas fa-play"></i>
                         New Scan
                     </button>
-                    {% if recent_reports %}
-                    <button type="button" class="btn btn-ghost" onclick="scrollToSection('reportsSection')">
+                    <a href="/reports" class="btn btn-ghost">
                         <i class="fas fa-file-alt"></i>
-                        View Reports
-                    </button>
-                    {% endif %}
+                        View All Reports
+                    </a>
                 </div>
             </div>
         </header>
@@ -86,7 +84,7 @@
 
             <section class="tools-section">
                 <div class="section-header subtle center">
-                    <h2><i class="fas fa-cogs"></i> Tools status</h2>
+                    <h2><i class="fas fa-cogs"></i> Installed Tools</h2>
                     <p>Auto-detected CLI tools available to enhance each scan.</p>
                 </div>
                 <div class="tools-grid" id="toolsGrid">
@@ -100,11 +98,11 @@
             {% if recent_reports %}
             <section class="reports-section" id="reportsSection">
                 <div class="section-header subtle">
-                    <h2><i class="fas fa-file-alt"></i> Recent reports</h2>
-                    <p>Quickly reopen completed scans and export PDFs.</p>
+                    <h2><i class="fas fa-file-alt"></i> Recent Reports</h2>
+                    <p>Quickly access your latest scans. <a href="/reports" style="color: #38bdf8; text-decoration: none;">View all →</a></p>
                 </div>
                 <div class="reports-grid">
-                    {% for report in recent_reports %}
+                    {% for report in recent_reports[:6] %}
                     <div class="report-card">
                         <div class="report-header">
                             <span class="report-id">{{ report.id }}</span>
@@ -115,18 +113,26 @@
                             </span>
                         </div>
                         <div class="report-actions">
-                            <a href="/report/{{ report.id }}" class="btn-link primary">
-                                <i class="fas fa-external-link-alt"></i> View HTML
+                            <a href="/report/{{ report.id }}" class="btn-link primary" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> View
                             </a>
                             {% if report.has_pdf %}
-                            <a href="/report/{{ report.id }}/pdf" class="btn-link secondary">
-                                <i class="fas fa-file-pdf"></i> Download PDF
+                            <a href="/report/{{ report.id }}/pdf" class="btn-link secondary" download>
+                                <i class="fas fa-file-pdf"></i> PDF
                             </a>
                             {% endif %}
                         </div>
                     </div>
                     {% endfor %}
                 </div>
+                {% if recent_reports|length > 6 %}
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="/reports" class="btn btn-ghost">
+                        <i class="fas fa-arrow-right"></i>
+                        View All {{ recent_reports|length }} Reports
+                    </a>
+                </div>
+                {% endif %}
             </section>
             {% endif %}
         </main>
@@ -227,12 +233,23 @@
             const toolsGrid = document.getElementById('toolsGrid');
             toolsGrid.innerHTML = '';
             
-            Object.entries(tools).forEach(([toolName, status]) => {
+            // Sort tools: available first, then unavailable
+            const sortedTools = Object.entries(tools).sort((a, b) => {
+                if (a[1] === b[1]) return a[0].localeCompare(b[0]);
+                return b[1] - a[1]; // true (1) comes before false (0)
+            });
+            
+            if (sortedTools.length === 0) {
+                toolsGrid.innerHTML = '<div class="tool-item"><span>No tools detected</span></div>';
+                return;
+            }
+            
+            sortedTools.forEach(([toolName, status]) => {
                 const toolItem = document.createElement('div');
                 toolItem.className = 'tool-item';
                 
                 const icon = document.createElement('i');
-                icon.className = status ? 'fas fa-check text-success' : 'fas fa-times text-danger';
+                icon.className = status ? 'fas fa-check-circle text-success' : 'fas fa-times-circle text-danger';
                 
                 const span = document.createElement('span');
                 span.textContent = toolName;
