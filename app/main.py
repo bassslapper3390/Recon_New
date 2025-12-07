@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
+from datetime import datetime
 import uuid
 import sys
 import asyncio
@@ -32,7 +33,38 @@ templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
-	return templates.TemplateResponse("index.html", {"request": request})
+	# Build a list of existing reports so they can be shown on the homepage
+	reports = []
+	for report_file in REPORTS_DIR.glob("*.html"):
+		# Use the filename (without extension) as the request_id
+		request_id = report_file.stem
+		# Skip any helper or non-scan files if they ever appear
+		if request_id.endswith("_findings"):
+			continue
+		
+		stat = report_file.stat()
+		created = datetime.fromtimestamp(stat.st_mtime)
+		
+		report_info = {
+			"id": request_id,
+			"filename": report_file.name,
+			"created_at": created,
+			"created_at_str": created.strftime("%Y-%m-%d %H:%M"),
+			"has_pdf": (REPORTS_DIR / f"{request_id}.pdf").exists(),
+			"has_findings": (REPORTS_DIR / f"{request_id}_findings.json").exists(),
+		}
+		reports.append(report_info)
+	
+	# Most recent first
+	reports.sort(key=lambda r: r["created_at"], reverse=True)
+	
+	return templates.TemplateResponse(
+		"index.html",
+		{
+			"request": request,
+			"recent_reports": reports,
+		},
+	)
 
 @app.post("/scan", response_model=dict)
 async def scan(background_tasks: BackgroundTasks, target: str = Form(...)):

@@ -55,6 +55,29 @@ docker compose up -d
 ```
 The container includes: nmap, masscan, naabu, nikto, nuclei, whatweb, wafw00f, subfinder, amass, sublist3r, dnsx, httpx, gobuster, ffuf, feroxbuster. Tools panel reflects availability inside the container.
 
+### Using CLI with Docker
+The CLI tool **automatically detects and uses Docker** if the container is running (recommended - has all tools):
+```powershell
+# Make sure Docker container is running
+docker compose up -d
+
+# Run CLI - it will automatically use Docker if available
+python cli_full_scan.py -t example.com -o reports/scan.pdf
+
+# Force local execution (skip Docker)
+python cli_full_scan.py -t example.com --no-docker
+```
+
+**Benefits of using Docker:**
+- All tools are available (nmap, nikto, nuclei, subfinder, etc.)
+- Reports are saved to `./reports` on your host machine via volume mount
+- No need to install tools on your Windows machine
+
+**Manual Docker execution** (if you prefer):
+```powershell
+docker compose exec recon python cli_full_scan.py -t example.com -o reports/scan.pdf
+```
+
 ## Run (port 8088)
 ```powershell
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8088

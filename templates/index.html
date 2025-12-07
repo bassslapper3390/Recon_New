@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 Advanced Reconnaissance Tool</title>
+    <title>Recon Pro</title>
     <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -11,30 +11,42 @@
     <div class="container">
         <header class="hero">
             <div class="hero-content">
-                <h1><i class="fas fa-search"></i> Advanced Reconnaissance Tool</h1>
-                <p class="hero-subtitle">Professional-grade reconnaissance with AI-powered analysis</p>
-                <div class="hero-features">
-                    <span class="feature-tag"><i class="fas fa-shield-alt"></i> Security</span>
-                    <span class="feature-tag"><i class="fas fa-brain"></i> AI-Powered</span>
-                    <span class="feature-tag"><i class="fas fa-rocket"></i> Fast</span>
-                    <span class="feature-tag"><i class="fas fa-globe"></i> Comprehensive</span>
+                <div class="hero-title-row">
+                    <h1><i class="fas fa-search"></i> Recon Pro</h1>
+                    <p class="hero-subtitle">Minimal, focused reconnaissance for security assessments.</p>
+                </div>
+                <div class="hero-actions">
+                    <button type="button" class="btn btn-primary" onclick="scrollToSection('scanSection')">
+                        <i class="fas fa-play"></i>
+                        New Scan
+                    </button>
+                    {% if recent_reports %}
+                    <button type="button" class="btn btn-ghost" onclick="scrollToSection('reportsSection')">
+                        <i class="fas fa-file-alt"></i>
+                        View Reports
+                    </button>
+                    {% endif %}
                 </div>
             </div>
         </header>
 
         <main class="main-content">
-            <div class="scan-section">
-                <h2><i class="fas fa-crosshairs"></i> Start New Scan</h2>
+            <section class="scan-section" id="scanSection">
+                <div class="section-header subtle">
+                    <h2><i class="fas fa-crosshairs"></i> Start a scan</h2>
+                    <p>Enter a domain or IP and let Recon Pro handle the rest.</p>
+                </div>
                 <form id="scanForm" class="scan-form">
                     <div class="input-group">
                         <label for="target">Target Domain or IP Address:</label>
                         <input type="text" id="target" name="target" placeholder="e.g., example.com or 192.168.1.1" required>
                     </div>
-                    <button type="submit" class="scan-btn">
-                        <i class="fas fa-play"></i> Start Comprehensive Scan
+                    <button type="submit" class="btn btn-primary scan-btn">
+                        <i class="fas fa-play"></i>
+                        Start Scan
                     </button>
                 </form>
-            </div>
+            </section>
 
             <div class="progress-section" id="progressSection" style="display: none;">
                 <h3><i class="fas fa-chart-line"></i> Scan Progress</h3>
@@ -47,135 +59,80 @@
                 <div class="progress-status" id="progressStatus">Initializing scan...</div>
             </div>
 
-            <div class="capabilities-section">
-                <h2><i class="fas fa-tools"></i> Scanning Capabilities</h2>
-                
-                <div class="capability-grid">
+            <section class="capabilities-section minimal">
+                <div class="section-header subtle">
+                    <h2><i class="fas fa-tools"></i> What this scan does</h2>
+                    <p>A curated set of passive and active checks to quickly map your attack surface.</p>
+                </div>
+                <div class="capability-grid compact">
                     <div class="capability-card">
-                        <div class="capability-icon"><i class="fas fa-network-wired"></i></div>
-                        <h3>Network Reconnaissance</h3>
-                        <ul>
-                            <li>Port Scanning (Nmap, Naabu, Masscan)</li>
-                            <li>Service Detection</li>
-                            <li>Network Topology</li>
-                            <li>Built-in TCP Scanner</li>
-                        </ul>
+                        <h3>Network & ports</h3>
+                        <p>Lightweight port, service and reachability checks using built-in and external tools.</p>
                     </div>
-
                     <div class="capability-card">
-                        <div class="capability-icon"><i class="fas fa-globe"></i></div>
-                        <h3>Web Application Analysis</h3>
-                        <ul>
-                            <li>Technology Detection (WhatWeb)</li>
-                            <li>Vulnerability Scanning (Nuclei, Nikto)</li>
-                            <li>WAF Detection</li>
-                            <li>Directory Enumeration</li>
-                        </ul>
+                        <h3>Web surface</h3>
+                        <p>Technologies, HTTP behavior and common misconfigurations on exposed web apps.</p>
                     </div>
-
                     <div class="capability-card">
-                        <div class="capability-icon"><i class="fas fa-sitemap"></i></div>
-                        <h3>Subdomain Discovery</h3>
-                        <ul>
-                            <li>DNS Enumeration (Subfinder, Amass)</li>
-                            <li>DNS Brute Force (Gobuster)</li>
-                            <li>Virtual Host Discovery</li>
-                            <li>Certificate Transparency</li>
-                        </ul>
+                        <h3>Domains & DNS</h3>
+                        <p>Subdomains, DNS records and certificate transparency used to expand the footprint.</p>
                     </div>
-
                     <div class="capability-card">
-                        <div class="capability-icon"><i class="fas fa-envelope"></i></div>
-                        <h3>Email Intelligence</h3>
-                        <ul>
-                            <li>Email Harvesting (TheHarvester)</li>
-                            <li>SPF/DKIM/DMARC Analysis</li>
-                            <li>MX Record Analysis</li>
-                            <li>Email Security Assessment</li>
-                        </ul>
-                    </div>
-
-                    <div class="capability-card">
-                        <div class="capability-icon"><i class="fas fa-lock"></i></div>
-                        <h3>SSL/TLS Analysis</h3>
-                        <ul>
-                            <li>Certificate Validation</li>
-                            <li>Security Issues Detection</li>
-                            <li>Expiration Monitoring</li>
-                            <li>Weak Algorithm Detection</li>
-                        </ul>
-                    </div>
-
-                    <div class="capability-card">
-                        <div class="capability-icon"><i class="fas fa-cloud"></i></div>
-                        <h3>Cloud Infrastructure</h3>
-                        <ul>
-                            <li>AWS/Azure/GCP Detection</li>
-                            <li>CDN Identification</li>
-                            <li>Cloud Service Mapping</li>
-                            <li>Infrastructure Profiling</li>
-                        </ul>
-                    </div>
-
-                    <div class="capability-card">
-                        <div class="capability-icon"><i class="fas fa-code"></i></div>
-                        <h3>API & Code Analysis</h3>
-                        <ul>
-                            <li>API Endpoint Discovery</li>
-                            <li>JavaScript Analysis</li>
-                            <li>Sensitive Data Detection</li>
-                            <li>Technology Stack Profiling</li>
-                        </ul>
-                    </div>
-
-                    <div class="capability-card">
-                        <div class="capability-icon"><i class="fas fa-mobile-alt"></i></div>
-                        <h3>Mobile & Social</h3>
-                        <ul>
-                            <li>Mobile App Analysis</li>
-                            <li>Social Media Intelligence</li>
-                            <li>Deep Link Discovery</li>
-                            <li>Platform Detection</li>
-                        </ul>
-                    </div>
-
-                    <div class="capability-card">
-                        <div class="capability-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <h3>Geolocation Intelligence</h3>
-                        <ul>
-                            <li>IP Geolocation</li>
-                            <li>ISP Information</li>
-                            <li>CDN Detection</li>
-                            <li>Infrastructure Mapping</li>
-                        </ul>
-                    </div>
-
-                    <div class="capability-card">
-                        <div class="capability-icon"><i class="fas fa-robot"></i></div>
-                        <h3>AI-Powered Analysis</h3>
-                        <ul>
-                            <li>Intelligent Summarization</li>
-                            <li>Threat Assessment</li>
-                            <li>Risk Scoring</li>
-                            <li>Actionable Insights</li>
-                        </ul>
+                        <h3>AI summary</h3>
+                        <p>Clean, prioritized findings to review quickly and share with your team.</p>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="tools-section">
-                <h2><i class="fas fa-cogs"></i> Tools Status</h2>
+            <section class="tools-section">
+                <div class="section-header subtle center">
+                    <h2><i class="fas fa-cogs"></i> Tools status</h2>
+                    <p>Auto-detected CLI tools available to enhance each scan.</p>
+                </div>
                 <div class="tools-grid" id="toolsGrid">
                     <div class="tool-item">
                         <i class="fas fa-spinner fa-spin"></i>
                         <span>Checking tools...</span>
                     </div>
                 </div>
-            </div>
+            </section>
+
+            {% if recent_reports %}
+            <section class="reports-section" id="reportsSection">
+                <div class="section-header subtle">
+                    <h2><i class="fas fa-file-alt"></i> Recent reports</h2>
+                    <p>Quickly reopen completed scans and export PDFs.</p>
+                </div>
+                <div class="reports-grid">
+                    {% for report in recent_reports %}
+                    <div class="report-card">
+                        <div class="report-header">
+                            <span class="report-id">{{ report.id }}</span>
+                        </div>
+                        <div class="report-meta">
+                            <span class="report-date">
+                                <i class="fas fa-clock"></i> {{ report.created_at_str }}
+                            </span>
+                        </div>
+                        <div class="report-actions">
+                            <a href="/report/{{ report.id }}" class="btn-link primary">
+                                <i class="fas fa-external-link-alt"></i> View HTML
+                            </a>
+                            {% if report.has_pdf %}
+                            <a href="/report/{{ report.id }}/pdf" class="btn-link secondary">
+                                <i class="fas fa-file-pdf"></i> Download PDF
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
         </main>
 
         <footer class="footer">
-            <p>&copy; 2024 Advanced Reconnaissance Tool | Professional Security Assessment</p>
+            <p>&copy; 2024 Recon Pro — Subtle, focused reconnaissance for security teams.</p>
         </footer>
     </div>
 
@@ -288,6 +245,13 @@
 
         // Load tools status on page load
         document.addEventListener('DOMContentLoaded', loadToolsStatus);
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
     </script>
 </body>
 </html>
